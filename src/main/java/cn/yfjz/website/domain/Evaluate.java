@@ -12,12 +12,18 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@Table(name = "p_project_server")
-public class ProjectServer extends IModel {
+@Table(name = "p_evaluate")
+public class Evaluate extends IModel {
 
-    @Column(length = 50)
-    private String name;
+    @Column(length = 20)
+    private String title;
+
+    @Column(length = 255)
+    private String content;
+
+    @Column(length = 500)
+    private String descrption;
 
     @Column(length = 100)
-    private String filter;
+    private String imageUrl;
 }

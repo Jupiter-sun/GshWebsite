@@ -308,25 +308,27 @@
                         </li>
                         <li data-filter=".1"><a href="#">专业漏损控制</a>
                         </li>
-                        <li data-filter=".1"><a href="#">地籍测绘</a>
+                        <li data-filter=".2"><a href="#">地籍测绘</a>
                         </li>
-                        <li data-filter=".1"><a href="#">工程测量</a>
+                        <li data-filter=".3"><a href="#">工程测量</a>
                         </li>
-                        <li data-filter=".1"><a href="#">供水CCADA系统</a>
+                        <li data-filter=".4"><a href="#">供水CCADA系统</a>
                         </li>
                     </ul>
                 </div>
                 <div class="gallery-grid">
                     <#list project as item>
-                        <!-- Single Gallery -->
-                        <div class="single-gallery ${item.file.id!}">
-                            <img src="${item.file.path!}" alt="${item.file.path!}">
-                            <div class="image-overly">
-                                <a class="pretty" href="${item.file.path!}">
-                                    <span><i class="fa fa-eye"></i></span>
-                                </a>
+                        <#list item.files as seq>
+                            <!-- Single Gallery -->
+                            <div class="single-gallery ${seq.objectId!}">
+                                <img src="${seq.path!}" alt="${seq.path!}">
+                                <div class="image-overly">
+                                    <a class="pretty" href="${seq.path!}">
+                                        <span><i class="fa fa-eye"></i></span>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        </#list>
                     </#list>
 
                 </div>
@@ -351,7 +353,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="team-member">
                         <div class="member-thumb">
-                            <img src="${item.file.path!}" alt="${item.file.path!}">
+                            <img src="${item.photo.path!}" alt="${item.photo.path!}">
                         </div>
                         <div class="member-detail">
                             <h4 class="member-name">${item.name!}</h4>
@@ -387,33 +389,17 @@
             </div>
             <div class="col-md-12">
                 <div class="testimonial-wrap owl-carousel owl-theme">
-                    <!-- Single Quote -->
-                    <div class="single-quote">
-                        <div class="quote-thumb">
-                            <img src="http://static.ydcss.com/uploads/ydui/3.jpg" alt="">
+                    <#list evaluate as item>
+                        <!-- Single Quote -->
+                        <div class="single-quote">
+                            <div class="quote-thumb">
+                                <img src="${item.imageUrl!}" alt="${item.imageUrl!}">
+                            </div>
+                            <p>${item.title!}</p>
+                            <h5>${item.content!}</h5>
+                            <span>${item.descrption!}</span>
                         </div>
-                        <p>牛逼，真鸡吧牛逼</p>
-                        <h5>狗蛋</h5>
-                        <span>狗蛋</span>
-                    </div>
-                    <!-- Single Quote -->
-                    <div class="single-quote">
-                        <div class="quote-thumb">
-                            <img src="http://static.ydcss.com/uploads/ydui/3.jpg" alt="">
-                        </div>
-                        <p>牛逼，真鸡吧牛逼</p>
-                        <h5>狗蛋</h5>
-                        <span>狗蛋</span>
-                    </div>
-                    <!-- Single Quote -->
-                    <div class="single-quote">
-                        <div class="quote-thumb">
-                            <img src="http://static.ydcss.com/uploads/ydui/3.jpg" alt="">
-                        </div>
-                        <p>牛逼，真鸡吧牛逼</p>
-                        <h5>狗蛋</h5>
-                        <span>狗蛋</span>
-                    </div>
+                    </#list>
                 </div>
                 <!-- Testimonial Wrap End -->
             </div>

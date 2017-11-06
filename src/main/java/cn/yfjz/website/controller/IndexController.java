@@ -2,6 +2,7 @@ package cn.yfjz.website.controller;
 
 import cn.yfjz.core.sys.controller.BaseController;
 import cn.yfjz.website.domain.*;
+import cn.yfjz.website.dto.ProjectServerDTO;
 import cn.yfjz.website.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,9 @@ public class IndexController extends BaseController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private EvaluateService evaluateService;
+
     /**
      * 门户首页
      * @param request
@@ -48,13 +52,15 @@ public class IndexController extends BaseController {
         List<Article> articleList = articleService.queryAll();
         List<Accounting> accountingList = accountService.queryAll();
         List<Employee> employeeList = employeeService.queryAll();
-        List<ProjectServer> projectServerList = projectService.queryAll();
+        List<ProjectServerDTO> projectServerDTOS = projectService.queryAll();
+        List<Evaluate> evaluateList = evaluateService.queryAll();
         request.setAttribute("folder",folderList);
         request.setAttribute("article",articleList);
         request.setAttribute("account",accountingList);
         request.setAttribute("employee",employeeList);
-        request.setAttribute("project",projectServerList);
-        logger.info("[article]="+articleList);
+        request.setAttribute("project",projectServerDTOS);
+        request.setAttribute("evaluate",evaluateList);
+        logger.info("[project]="+projectServerDTOS);
         return new ModelAndView("/website/home");
     }
 }
