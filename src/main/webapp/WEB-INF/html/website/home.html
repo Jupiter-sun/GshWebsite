@@ -47,10 +47,11 @@
                     <div class="rss-feed">
                         <div id="rss-item" class="ticker">
                             <ul>
-                                <li>祝贺我公司节能监管系统入选武汉市优秀创业项目滚动扶持项目</li>
-                                <li>我公司受邀参加2014年度湖北高校能源管理及能源监管平台工作</li>
-                                <li>我公司入选“低碳武汉•2013年度突出贡献企业”</li>
-                                <li>我公司2013年年终总结暨先进个人表彰大会取得圆满成功</li>
+                                <#list article as item>
+                                    <#if (item.folder.name == '新闻动态')>
+                                        <li>${item.title!}</li>
+                                    </#if>
+                                </#list>
                             </ul>
                         </div>
                     </div>
@@ -142,46 +143,19 @@
 
 <!-- SLIDER AREA START -->
 <div id="slider-area" class="owl-carousel owl-theme gr-slider-area">
-    <!-- Single Slide Start -->
-    <div class="single-slide overly">
-        <img src="images/3dxiaoyuanlc.jpg" alt="">
-        <div class="slide-txt">
-            <h2>三维数字校园信息系统</h2>
-            <p>三维数字校园管理系统是一种集数字化、信息化、可视化等多种技术为一体的校园计算机管理应用系统。三维数字校园能真实地反映校园地上和地下的全貌。该系统功能强大，不仅能通过实时漫游行走，产生身临其境的感觉, 还能通过交互的信息查询，更加全面地展示校园各种属性信息，对提高校园管理水平等具有重要的现实意义。</p>
-            <a href="#" class="gr-btn">更多</a>
-        </div>
-    </div>
-    <!-- Single Slide Start -->
-    <div class="single-slide overly">
-        <img src="images/gdmain1.jpg" alt="">
-        <div class="slide-txt">
-            <h2>供电监控信息管理系统</h2>
-            <p>系统采用工业级应用的专用多功能通讯网关，实时监控各种RS-485接口的电表的工作状态，以及实时采集各种在线监控数据，通过局域网与后台服务器连接，保持数据同步。系统提供灵活的统计、分析、查询报表，结合能源指标管理体系与信息发布及告警平台，及时发布电能使用信息及设备运行信息等，为节能监管与系统运行提供科学的管理手段。
-                为便于区分管理，该系统又分为供电计量与节能监管分系统、供电设备远程监管分系统和供电计量抄收付费分系统。</p>
-            <a href="#" class="gr-btn">更多</a>
-        </div>
-    </div>
-    <!-- Single Slide Start -->
-    <div class="single-slide overly">
-        <img src="images/gqlc.jpg" alt="">
-        <div class="slide-txt">
-            <h2>供气监控信息管理系统</h2>
-            <p>该系统对各用气点实现分区、分户、分类实时计量。并通过WEB发布的形式，使得用气单位各级管理人员不管身处何时何地，都可以轻松地对本单位各部门的用气情况进行监控与管理。采用该系统还可以设定用气指标，实现用气的管理和指标执行情况的监督、费用结算、数据统计分析等多项功能，为实现企事业单位内部各部门用气的量化管理提供了必备条件。</p>
-            <a href="#" class="gr-btn">更多</a>
-        </div>
-    </div>
-
-    <!-- Single Slide Start -->
-    <div class="single-slide overly">
-        <img src="images/ldlc.jpg" alt="">
-        <div class="slide-txt">
-            <h2>路灯智能监管系统</h2>
-            <p>该系统通过灵活的组网方式，实现无线数据传输与远程控制，实现对校内各路段的路灯与景观灯根据预先设置的时间、区域等参数，自动控制照明的开启与关闭。实现不同区域内的路灯与景观灯灵活开启与关闭。路灯与景观灯以及相关控制设备异常可通过短信平台及时告警，使路灯与景观灯的控制管理轻松方便，并可带来可观的节能效益。</p>
-            <a href="#" class="gr-btn">更多</a>
-        </div>
-    </div>
-
-
+    <#list article as item>
+        <#if item.folder.name == "软件推荐">
+            <!-- Single Slide Start -->
+            <div class="single-slide overly">
+                <img src="${item.imageUrl!}" alt="${item.imageUrl!}">
+                <div class="slide-txt">
+                    <h2>${item.title!}</h2>
+                    <p>${item.content!}</p>
+                    <a href="#" class="gr-btn">更多</a>
+                </div>
+            </div>
+        </#if>
+    </#list>
 </div>
 <!-- SLIDER AREA END -->
 
@@ -198,41 +172,33 @@
             <div class="col-md-12">
                 <div class="about-wrap">
                     <ul>
-                        <li class="ab-single clearfix">
-                            <div class="col-md-6 col-sm-6">
-                                <img src="images/20141112101916_45546.jpg" alt="">
-                            </div>
-                            <div class="col-md-6 col-sm-6">
-                                <div class="ab-content">
-                                    <h4>祝贺我公司节能监管系统入选武汉市优秀创业项目滚动扶持项目</h4>
-                                    <p>我公司基于WebGIS的节能监管综合信息管理系统成功入选武汉市优秀创业项目滚动扶持项目。
-                                        “基于WebGIS的节能监管综合信息管理系统”是根据建设资源节约型社会的基本国策和高校节能降耗工作的迫切需要，采用新一代SilverLight技术，以管网综合空间地理信息、远程监控、物联网等核心技术为基础，为大型企事业单位构建管网综合空间地理信息监控、海量用能信息采集统计分析的网络化动态节能管理系统，给用能单位提供全方位的实时的节能诊断和警示服务，从而实现节能优化管理。</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="ab-single clearfix">
-                            <div class="col-md-6 col-sm-6">
-                                <div class="ab-content">
-                                    <h4>我公司受邀参加2014年度湖北高校能源管理及能源监管平台工作</h4>
-                                    <p>为进一步推进湖北高校节约型校园建设的步伐，推广高校水电管理新理念，新模式，交流先进经验，由湖北省高校后勤管理研究会水电管理专业部主办，湖北仙桃职业技术学院协办的“湖北省高校能源管理及能源监管平台工作研讨会”于2014年5月29日在仙桃召开，武汉格事化信息科技有限公司作为一家专业能源管理系统平台建设及综合节能管理企业受邀参加本次会议，并在大会就“平台建设相关经验”作出汇报演讲。</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6">
-                                <img src="images/hyzp.jpg" alt="">
-                            </div>
-
-                        </li>
-                        <li class="ab-single clearfix">
-                            <div class="col-md-6 col-sm-6">
-                                <img src="images/20140410103156_15603.jpg" alt="">
-                            </div>
-                            <div class="col-md-6 col-sm-6">
-                                <div class="ab-content">
-                                    <h4>我公司入选“低碳武汉•2013年度突出贡献企业”</h4>
-                                    <p>认真贯彻党的十八大提出的我国经济要坚持“循环发展、绿色发展、低碳发展”的方针，落实《武汉市低碳城市试点工作方案》，由武汉市慈善总会•武汉低碳公益发展基金发起，武汉低碳经济促进会、武汉现代管理科学研究会联合举办“表彰低碳武汉•2013年度突出贡献企业暨低碳公益发展基金优质合作惠民项目征选活动”日前启动。</p>
-                                </div>
-                            </div>
-                        </li>
+                        <#list article as item>
+                            <#if item.folder.name == '新闻动态'>
+                                <li class="ab-single clearfix">
+                                    <#if item?item_parity == "odd">
+                                        <div class="col-md-6 col-sm-6">
+                                            <img src="${item.imageUrl!}" alt="${item.imageUrl!}">
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="ab-content">
+                                                <h4>${item.title!}</h4>
+                                                <p>${item.content!}</p>
+                                            </div>
+                                        </div>
+                                    <#else>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="ab-content">
+                                                <h4>${item.title!}</h4>
+                                                <p>${item.content!}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <img src="${item.imageUrl!}" alt="${item.imageUrl!}">
+                                        </div>
+                                    </#if>
+                                </li>
+                            </#if>
+                        </#list>
                     </ul>
                 </div>
             </div>
@@ -251,50 +217,22 @@
                     <p>武汉市江岸区汉口城市广场，软件解决方案专家</p>
                 </div>
             </div>
-            <!-- Single Cause -->
-            <div class="col-md-3 col-sm-6">
-                <div class="cause-single">
-                    <img src="images/3dxiaoyuan.jpg" alt="">
-                    <div class="cause-details">
-                        <h4>三维数字校园信息系统</h4>
-                        <p>  三维数字校园管理系统是一种集数字化、信息化、可视化等多种技术为一体的校园计算机管理应用系统。三维数字校园能真实地反映校园地上和地下的全貌。</p>
-                        <a href="#" class="gr-btn">详情</a>
+            <#list article as item>
+                <#if item.folder.name == "软件推荐">
+                    <!-- Single Cause -->
+                    <div class="col-md-3 col-sm-6">
+                        <div class="cause-single">
+                            <img src="${item.imageUrl!}" alt="${item.imageUrl!}">
+                            <div class="cause-details">
+                                <h4>${item.title!}</h4>
+                                <p>${item.content!}</p>
+                                <a href="#" class="gr-btn">详情</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Single Cause -->
-            <div class="col-md-3 col-sm-6">
-                <div class="cause-single">
-                    <img src="images/gdmain0.jpg" alt="">
-                    <div class="cause-details">
-                        <h4>供电监控信息管理系统</h4>
-                        <p>系统采用工业级应用的专用多功能通讯网关，实时监控各种RS-485接口的电表的工作状态，以及实时采集各种在线监控数据，通过局域网与后台服务器连接，保持数据同步。</p>
-                        <a href="#" class="gr-btn">详情</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Cause -->
-            <div class="col-md-3 col-sm-6">
-                <div class="cause-single">
-                    <img src="images/gqlc.jpg" alt="">
-                    <div class="cause-details">
-                        <h4>供气监控信息管理系统</h4>
-                        <p>该系统对各用气点实现分区、分户、分类实时计量。并通过WEB发布的形式，使得用气单位各级管理人员都可以轻松地对用气情况进行监控与管理。</p>
-                        <a href="#" class="gr-btn">详情</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Cause -->
-            <div class="col-md-3 col-sm-6">
-                <div class="cause-single">
-                    <img src="images/ldlc.jpg" alt="">
-                    <div class="cause-details">
-                        <h4>路灯智能监管系统</h4>
-                        <p>该系统通过灵活的组网方式，实现无线数据传输与远程控制，实现对校内各路段的路灯与景观灯根据预先设置的时间、区域等参数，自动控制照明的开启与关闭。</p>
-                        <a href="#" class="gr-btn">详情</a>
-                    </div>
-                </div>
-            </div>
+                </#if>
+            </#list>
+
         </div>
     </div>
 </div>
@@ -310,67 +248,20 @@
                     <p>武汉市江岸区汉口城市广场，软件解决方案专家</p>
                 </div>
             </div>
-            <!-- Single Service -->
-            <div class="col-md-4 col-sm-6">
-                <div class="service-single">
-                    <span class="service-icon gr-icon"><i class="fa fa-connectdevelop"></i></span>
-                    <div class="service-details">
-                        <h4>节水分享方案</h4>
-                        <p>在合同期限内，用水单位和我公司根据约定的比例共同分享节水效益，合同能源管理项目的投入由我公司单独承担.</p>
+            <#list article as item>
+                <#if item.folder.name == "解决方案">
+                    <!-- Single Service -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="service-single">
+                            <span class="service-icon gr-icon"><i class="${item.icon!}"></i></span>
+                            <div class="service-details">
+                                <h4>${item.title!}</h4>
+                                <p>${item.content!}</p>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
-            </div>
-            <!-- Single Service -->
-            <div class="col-md-4 col-sm-6">
-                <div class="service-single">
-                    <span class="service-icon gr-icon"><i class="fa fa-building-o"></i></span>
-                    <div class="service-details">
-                        <h4>节水保证方案</h4>
-                        <p>由我公司和用水单位双方共同或任意一方单独出资实施节水项目，我公司保证承诺的节水量。</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Service -->
-            <div class="col-md-4 col-sm-6">
-                <div class="service-single">
-                    <span class="service-icon gr-icon"><i class="fa fa-hand-pointer-o"></i></span>
-                    <div class="service-details">
-                        <h4>节水托管方案</h4>
-                        <p>在合同期内，用水单位按照约定的费用委托我公司进行地下供水管网系统的运行管理和/或节水改造。</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Service -->
-            <div class="col-md-4 col-sm-6">
-                <div class="service-single">
-                    <span class="service-icon gr-icon"><i class="fa fa-align-justify"></i></span>
-                    <div class="service-details">
-                        <h4>治理漏水方案</h4>
-                        <p>在合同期内，用水单位按照约定的费用委托我公司进行地下供水管网系统的运行管理和/或治理漏水。</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Service -->
-            <div class="col-md-4 col-sm-6">
-                <div class="service-single">
-                    <span class="service-icon gr-icon"><i class="fa fa-home"></i></span>
-                    <div class="service-details">
-                        <h4>建筑方案</h4>
-                        <p>在合同期内，用水单位按照约定的费用委托我公司进行地下供水管网系统的运行管理和/或新建住房。</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Service -->
-            <div class="col-md-4 col-sm-6">
-                <div class="service-single">
-                    <span class="service-icon gr-icon"><i class="fa fa-ambulance"></i></span>
-                    <div class="service-details">
-                        <h4>运输方案</h4>
-                        <p>在合同期内，用水单位按照约定的费用委托我公司进行地下供水管网系统的运行管理和/或饮用水运输。</p>
-                    </div>
-                </div>
-            </div>
+                </#if>
+            </#list>
         </div>
     </div>
 </div>
@@ -388,26 +279,13 @@
             </div>
             <div class="col-md-12">
                 <div class="p-fun-wrap">
-                    <div class="single-fun">
-                        <i class="fa fa-heart"></i>
-                        <h5>关注人数</h5>
-                        <span class="counter">16850</span>
-                    </div>
-                    <div class="single-fun">
-                        <i class="fa fa-users"></i>
-                        <h5>团队成员</h5>
-                        <span class="counter">56</span>
-                    </div>
-                    <div class="single-fun">
-                        <i class="fa fa-home"></i>
-                        <h5>完成项目</h5>
-                        <span class="counter">145</span>
-                    </div>
-                    <div class="single-fun">
-                        <i class="fa fa-money"></i>
-                        <h5>收入</h5>
-                        <span class="counter">12000000</span>
-                    </div>
+                    <#list account as item>
+                        <div class="single-fun">
+                            <i class="${item.icon!}"></i>
+                            <h5>${item.name!}</h5>
+                            <span class="counter">${item.value!}</span>
+                        </div>
+                    </#list>
                 </div>
             </div>
         </div>
@@ -428,89 +306,29 @@
                     <ul>
                         <li class="active" data-filter="*"><a href="#">所有</a>
                         </li>
-                        <li data-filter=".cat1"><a href="#">专业漏损控制</a>
+                        <li data-filter=".1"><a href="#">专业漏损控制</a>
                         </li>
-                        <li data-filter=".cat2"><a href="#">地籍测绘</a>
+                        <li data-filter=".1"><a href="#">地籍测绘</a>
                         </li>
-                        <li data-filter=".cat3"><a href="#">工程测量</a>
+                        <li data-filter=".1"><a href="#">工程测量</a>
                         </li>
-                        <li data-filter=".cat4"><a href="#">供水CCADA系统</a>
+                        <li data-filter=".1"><a href="#">供水CCADA系统</a>
                         </li>
                     </ul>
                 </div>
                 <div class="gallery-grid">
-                    <!-- Single Gallery -->
-                    <div class="single-gallery cat1 cat2">
-                        <img src="images/cehui0.jpg" alt="">
-                        <div class="image-overly">
-                            <a class="pretty" href="images/cehui0.jpg">
-                                <span><i class="fa fa-eye"></i></span>
-                            </a>
+                    <#list project as item>
+                        <!-- Single Gallery -->
+                        <div class="single-gallery ${item.file.id!}">
+                            <img src="${item.file.path!}" alt="${item.file.path!}">
+                            <div class="image-overly">
+                                <a class="pretty" href="${item.file.path!}">
+                                    <span><i class="fa fa-eye"></i></span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Single Gallery -->
-                    <div class="single-gallery cat1 cat3">
-                        <img src="images/cehui1.jpg" alt="">
-                        <div class="image-overly">
-                            <a class="pretty" href="images/cehui1.jpg">
-                                <span><i class="fa fa-eye"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Single Gallery -->
-                    <div class="single-gallery cat1 cat4">
-                        <img src="images/cehui2.jpg" alt="">
-                        <div class="image-overly">
-                            <a class="pretty" href="images/cehui2.jpg">
-                                <span><i class="fa fa-eye"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Single Gallery -->
-                    <div class="single-gallery cat4">
-                        <img src="images/image002.jpg" alt="">
-                        <div class="image-overly">
-                            <a class="pretty" href="images/image002.jpg">
-                                <span><i class="fa fa-eye"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Single Gallery -->
-                    <div class="single-gallery cat4 cat1">
-                        <img src="images/ban08275477934000.jpg" alt="">
-                        <div class="image-overly">
-                            <a class="pretty" href="images/ban08275477934000.jpg">
-                                <span><i class="fa fa-eye"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Single Gallery -->
-                    <div class="single-gallery cat3 cat4">
-                        <img src="images/ban15093900139900.jpg" alt="">
-                        <div class="image-overly">
-                            <a class="pretty" href="images/ban15093900139900.jpg">
-                                <span><i class="fa fa-eye"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Single Gallery -->
-                    <div class="single-gallery cat3 cat2">
-                        <img src="images/ban15102012180200.jpg" alt="">
-                        <div class="image-overly">
-                            <a class="pretty" href="images/ban15102012180200.jpg">
-                                <span><i class="fa fa-eye"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Single Gallery -->
-                    <div class="single-gallery cat3 cat1">
-                        <img src="images/ban15112833671300.jpg" alt="">
-                        <div class="image-overly">
-                            <a class="pretty" href="images/ban15112833671300.jpg">
-                                <span><i class="fa fa-eye"></i></span>
-                            </a>
-                        </div>
-                    </div>
+                    </#list>
+
                 </div>
             </div>
         </div>
@@ -524,98 +342,35 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="sectino-intro">
-                    <h2 class="section-heading gr-heading">团队成员</h2>
+                    <h2 class="section-heading gr-heading">优秀员工</h2>
                     <p>武汉市江岸区汉口城市广场，软件解决方案专家</p>
                 </div>
             </div>
-            <!-- Team Member -->
-            <div class="col-md-3 col-sm-6">
-                <div class="team-member">
-                    <div class="member-thumb">
-                        <img src="http://static.ydcss.com/uploads/ydui/1.jpg" alt="">
-                    </div>
-                    <div class="member-detail">
-                        <h4 class="member-name">张帆</h4>
-                        <p>猥琐男，外号蛋蛋</p>
-                        <ul class="gr-member-social">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Team Member -->
-            <div class="col-md-3 col-sm-6">
-                <div class="team-member">
-                    <div class="member-thumb">
-                        <img src="http://static.ydcss.com/uploads/ydui/2.jpg" alt="">
-                    </div>
-                    <div class="member-detail">
-                        <h4 class="member-name">柳梦婷</h4>
-                        <p>人美声甜，辣妈</p>
-                        <ul class="gr-member-social">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
+            <#list employee as item>
+                <!-- Team Member -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="team-member">
+                        <div class="member-thumb">
+                            <img src="${item.file.path!}" alt="${item.file.path!}">
+                        </div>
+                        <div class="member-detail">
+                            <h4 class="member-name">${item.name!}</h4>
+                            <p>${item.description!}</p>
+                            <ul class="gr-member-social">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Team Member -->
-            <div class="col-md-3 col-sm-6">
-                <div class="team-member">
-                    <div class="member-thumb">
-                        <img src="http://static.ydcss.com/uploads/ydui/3.jpg" alt="">
-                    </div>
-                    <div class="member-detail">
-                        <h4 class="member-name">刘溢沅</h4>
-                        <p>不知道怎么形容了，帅的一比</p>
-                        <ul class="gr-member-social">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Team Member -->
-            <div class="col-md-3 col-sm-6">
-                <div class="team-member">
-                    <div class="member-thumb">
-                        <img src="http://static.ydcss.com/uploads/ydui/1.jpg" alt="">
-                    </div>
-                    <div class="member-detail">
-                        <h4 class="member-name">唐斌</h4>
-                        <p>闷骚男，外表平静，内心风骚</p>
-                        <ul class="gr-member-social">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            </#list>
+
         </div>
     </div>
 </div>

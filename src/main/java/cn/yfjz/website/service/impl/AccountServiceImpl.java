@@ -1,7 +1,7 @@
 package cn.yfjz.website.service.impl;
 
-import cn.yfjz.website.domain.Folder;
-import cn.yfjz.website.service.FolderService;
+import cn.yfjz.website.domain.Accounting;
+import cn.yfjz.website.service.AccountService;
 import com.avaje.ebean.EbeanServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,16 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by administrator on 2017/11/5.
+ * Created by administrator on 2017/11/6.
  */
 @Service
-public class FolderServiceImpl implements FolderService {
-
+public class AccountServiceImpl implements AccountService{
     @Autowired
     private EbeanServer ebeanServer;
 
     @Override
-    public List<Folder> queryAll(){
-        return ebeanServer.find(Folder.class).findList();
+    public List<Accounting> queryAll() {
+        return ebeanServer.find(Accounting.class).findList();
     }
 }

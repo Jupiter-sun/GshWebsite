@@ -12,7 +12,7 @@
         <menu id="dw2" name="软件推荐" url="/product/list" perms="system:manage" img="fa fa-caret-right"/>
         <menu id="dw2" name="解决方案" url="/idea/list" perms="system:manage" img="fa fa-caret-right"/>
         <menu id="dw2" name="工程服务" url="/server/list" perms="system:manage" img="fa fa-caret-right"/>
-        <menu id="dw2" name="团队成员" url="/teams/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="dw2" name="优秀员工" url="/teams/list" perms="system:manage" img="fa fa-caret-right"/>
         <menu id="dw2" name="客户评价" url="/evaluate/list" perms="system:manage" img="fa fa-caret-right"/>
     </group>
 

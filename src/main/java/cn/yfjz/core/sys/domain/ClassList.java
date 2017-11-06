@@ -1,18 +1,18 @@
 package cn.yfjz.core.sys.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-
+import cn.yfjz.core.util.Expression;
 import cn.yfjz.core.util.PinyinUtil;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
-import cn.yfjz.core.util.Expression;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liwj on 16/9/22.
  */
+@Data
 @Entity
 @Table(name="p_class")
 public class ClassList extends IModel {
@@ -46,49 +46,7 @@ public class ClassList extends IModel {
         return bh;
     }
 
-    public void setBh(String bh) {
-        this.bh = bh;
-    }
 
-    public String getBjmc() {
-        return bjmc;
-    }
-
-    public void setBjmc(String bjmc) {
-        this.bjmc = bjmc;
-    }
-
-    public Major getMajor() {
-        return major;
-    }
-
-    public void setMajor(Major major) {
-        this.major = major;
-    }
-
-    public Dept getXy() {
-        return xy;
-    }
-
-    public void setXy(Dept xy) {
-        this.xy = xy;
-    }
-
-    public String getNj() {
-        return nj;
-    }
-
-    public void setNj(String nj) {
-        this.nj = nj;
-    }
-
-    public String getBz() {
-        return bz;
-    }
-
-    public void setBz(String bz) {
-        this.bz = bz;
-    }
     
     public List<Expression> getCondition(ClassList classList){
     	List<Expression> params = new ArrayList<Expression>();
