@@ -1,0 +1,29 @@
+<#include "/common/top.html"/>
+<div class="row page-header">
+	<div class="col-xs-12">
+		<span class="block pull-right">
+			<button class="btn btn-info" onclick="optUpdate()" ><i class="fa fa-pencil bigger-80"></i>&nbsp;编辑</button>
+		</span>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div id="configList"></div>
+	</div>
+</div>
+<#include "/common/bottom.html"/>
+<script type="text/javascript">
+	$(document).ready(function(){
+		optQuery();
+	});
+	function optQuery(){
+		loadGrid("configList", addNoCache("${ctx}/config/page"), getWhere());
+	}
+	function optUpdate(){
+		if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+			$.msg("请选择一项");
+			return;
+		}
+		$.dialog(addNoCache("${ctx}/config/toEdit?"+getWhereStr()),"编辑", "800", "300");
+	}
+</script>

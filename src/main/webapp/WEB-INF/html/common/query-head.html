@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>${SYSTEM_NAME!}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <#include "/common/inc.html"/>
+    <#include "/common/inc_more.html"/>
+    <link rel="stylesheet" href="${ctx}/css/jqgrid.css" />
+    <script src="${ctx}/js/echarts/echarts.js"></script>
+    <style type="text/css">
+        .footer {
+            padding-top:0px;
+            height: 0;
+            width: 0;
+        }
+        .page-content{padding-bottom:8px;}
+
+    </style>
+    <script type="text/javascript">
+
+        function logout(){
+            $.confirm("确认退出系统吗？",function(){
+                window.location.href = "${ctx}/logout";
+            });
+        }
+        function alertMsg(msgText,msgStatus){
+            if(msgText!=null&&msgText!=""){
+                $.alert(msgText,msgStatus);
+            }
+        }
+        function todo(url, submenuid, menuid){
+            var formStr = "<form id='hiddenTargetForm' action='${ctx}"+url+"' method='post'>";
+            formStr += "<input type='hidden' name='_menuid_' value='"+menuid+"'/>";
+            formStr += "<input type='hidden' name='_submenuid_' value='"+submenuid+"'/>";
+            formStr += "</form>";
+            $("BODY").append(formStr);
+            $("#hiddenTargetForm").submit();
+        }
+        function changePassword(){
+            $.dialog("${ctx}/user/password.do","修改密码", "500","400");
+        }
+    </script>
+</head>
+<body class="no-skin">
+
+<#include "/common/top.html"/>
+<div class="main-container" id="main-container">
+    <#include "/common/left.html"/>

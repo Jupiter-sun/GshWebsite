@@ -1,0 +1,6 @@
+<@p.table value=page id="contentTable" url="/content/contentList.do";item,i,has_next>
+    <@p.column width="800" align="left" title="标题">
+        <a href="javascript:void(0)" onclick="optView('${item.id!}')">【${item.channel.name!}】${item.title!}</a>
+    </@p.column><#t/>
+    <@p.column width="100" title="时间" tips="true"><#if item.whenCreated??>${item.whenCreated?string("yyyy-MM-dd")}</#if></@p.column><#t/>
+</@p.table>

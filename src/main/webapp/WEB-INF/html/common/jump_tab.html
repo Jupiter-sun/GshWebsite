@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>${SYSTEM_NAME!}</title>
+    <#include "/common/inc.html"/>
+    <#include "/common/inc_more.html"/>
+</head>
+<body class="no-skin">
+<script type="text/javascript">
+    $(document).ready(function(){
+        parent.alertMsg("${msg.errcode!}","${msg.errmsg!}");
+        parent.reloadGrid();
+        $.close();
+    });
+</script>
+</body>
+</html>

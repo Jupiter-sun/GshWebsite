@@ -1,0 +1,232 @@
+<#assign ctx=rc.contextPath/>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>${SYSTEM_NAME!}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="${ctx}/static/ace/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="${ctx}/static/ace/assets/css/font-awesome.css" />
+    <link rel="stylesheet" href="${ctx}/static/ace/assets/css/select2.css" />
+    <!-- text fonts -->
+    <link rel="stylesheet" href="${ctx}/static/ace/assets/css/ace-fonts.css" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="${ctx}/static/ace/assets/css/ace.css" />
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="${ctx}/static/ace/assets/css/ace-part2.css" />
+    <![endif]-->
+    <link rel="stylesheet" href="${ctx}/static/ace/assets/css/ace-rtl.css" />
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="${ctx}/static/ace/assets/css/ace-ie.css" />
+    <![endif]-->
+    <link rel="stylesheet" href="${ctx}/static/css/iconfont.css"/>
+    <!-- ace settings handler -->
+    <script src="${ctx}/static/ace/assets/js/ace-extra.js"></script>
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+    <script src="${ctx}/static/ace/assets/js/html5shiv.js"></script>
+    <script src="${ctx}/static/ace/assets/js/respond.js"></script>
+    <![endif]-->
+    <!--[if !IE]> -->
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='${ctx}/static/ace/assets/js/jquery.js'>"+"<"+"/script>");
+    </script>
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='${ctx}/static/ace/assets/js/jquery1x.js'>"+"<"+"/script>");
+    </script>
+    <![endif]-->
+    <script type="text/javascript">
+        if('ontouchstart' in document.documentElement) document.write("<script src='${ctx}/static/ace/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+    </script>
+    <script type="text/javascript" src="${ctx}/static/ace/assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${ctx}/static/js/layer/layer.js"></script>
+    <script type="text/javascript" src="${ctx}/static/js/jquery.ext.js"></script>
+    <!--ztree -->
+    <style type="text/css">
+        .tabselect1{height:50px; border-bottom:1px dotted #e2e2e2;margin:0 10px 10px 10px;}
+        .tabselect1 li {
+            float:left;
+            list-style:none;
+            font-weight: normal;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: hand;
+            cursor: pointer;
+            -webkit-border-radius: .2em;
+            -moz-border-radius: .2em;
+            border-radius: .2em;
+            padding:10px;
+            margin:4px 0;
+            display:-moz-inline-box;
+            display:inline-block;
+        }
+        .tabselect1 li.active {
+            background: #6fb3e0;
+            color: #fff;
+            border: 1px #6fb3e0 solid;
+        }
+        .tabselect1 li.active:hover {
+            background: #6fb3e0;
+            color: #fff;
+            border: 1px #6fb3e0 solid;
+        }
+    </style>
+</head>
+<body class="no-skin">
+<input type="hidden" name="param" id="param"/>
+<div class="main-container" id="main-container">
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="page-content" style="padding-bottom:0;">
+                <div class="row" id="gradeItem">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer" style="padding-top:10px;">
+        <div class="footer-inner">
+            <div class="footer-content" id="page-footer">
+                <button id="closeIframe"  class="btn btn-info" onclick="optClick()" >
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    确定
+                </button>
+                <button id="clearBtn"  class="btn" onclick="optClear()" >
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    function TreeModel(item){
+        this.tree = item||[];
+        this.groups = {};
+    }
+    TreeModel.prototype={
+        init:function(){
+            this.group();
+        },
+        group:function () {
+            for(var i=0; i<this.tree.length; i++){
+                if(this.groups[this.tree[i].pid]){
+                    this.groups[this.tree[i].pid].push(this.tree[i]);
+                } else {
+                    this.groups[this.tree[i].pid]=[];
+                    this.groups[this.tree[i].pid].push(this.tree[i]);
+                }
+            }
+        },
+        find:function (id) {
+            for(var i=0; i<this.tree.length; i++){
+                if(this.tree[i].id==id){
+                    return this.tree[i];
+                }
+            }
+        }
+    }
+    var gradeArray = new Array();
+    <#if grades??&&(grades?size>0)>
+    <#list grades as grade>
+    gradeArray.push({id:"${grade.id}",pid:"<#if grade.father_id??>${grade.father_id!}<#else>-1</#if>",name:"${grade.name}",level:${grade.level},leaf:"${grade.connect_by_isleaf}",minval:"${grade.minval!}",maxval:"${grade.maxval!}",fullname:"${grade.fullname!}"});
+    </#list>
+    var gradeTree = new TreeModel(gradeArray);
+    gradeTree.init();
+    </#if>
+    $(document).ready(function(){
+        show("-1", 1);
+        <#if selectGrades?? && (selectGrades?size>0)>
+        <#list selectGrades as item>
+            initShow("${item.id}");
+        </#list>
+        </#if>
+    });
+    function initShow(id){
+        var obj = gradeTree.find(id);
+        showChild(obj.id, obj.level,obj.leaf,obj.minval,obj.maxval);
+    }
+
+
+    function show(pid, level){
+        var html = "";
+        var items = gradeTree.groups[pid];
+        for(var i=0; i<items.length;i++){
+            html+="<li id='li_"+items[i].level+"_"+items[i].id+"' onclick='showChild(\""+items[i].id+"\", "+items[i].level+", \""+items[i].leaf+"\",\""+items[i].minval+"\",\""+items[i].maxval+"\")'>"+items[i].name+"</li>";
+        }
+        if($("#grade_"+level).length>0){
+            $("#grade_"+level).html(html);
+        }
+        else{
+            $("#gradeItem").append("<ul class='tabselect1' id='grade_"+level+"'>"+html+"</ul>");
+        }
+    }
+
+    function showChild(id, level, leaf, minval, maxval){
+        $("li[id^='li_"+level+"_']").removeClass("active");
+        $("#li_"+level+"_"+id).addClass("active");
+        if(leaf=="1"){
+            var min = parseFloat(minval);
+            var max = parseFloat(maxval);
+            if(min==max){
+                showResult("所得分：<input type='hidden' id='level' name='level' value='"+level+"'/><input type='hidden' id='gradeId' name='gradeId' value='"+id+"'/><input type='hidden' id='score' name='score' value='"+min+"'/>"+min);
+            }
+            else{
+                showResult("所得分：<input type='hidden' id='level' name='level' value='"+level+"'/><input type='hidden' id='gradeId' name='gradeId' value='"+id+"'/><input type='text' id='score' name='score' value=''/> ("+min+" - "+max+")");
+            }
+        }
+        else{
+            if($("#resultItem").length>0){
+                $("#resultItem").html("<li></li>");
+            }
+            show(id, level+1);
+            $("ul[id^='grade_']").each(function () {
+                var gradeLevel = parseFloat(this.id.substr(6));
+                if(gradeLevel-1>level){
+                    $(this).html("");
+                }
+            });
+        }
+    }
+    function showResult(str) {
+        if($("#resultItem").length>0){
+            $("#resultItem").html("<li>"+str+"</li>");
+        }
+        else{
+            $("#gradeItem").append("<ul class='tabselect1' id='resultItem'><li>"+str+"</li></ul>");
+        }
+    }
+    function optClick(){
+        var score = $("#score").val();
+        if($.trim(score).length<=0){
+            $.msg("请输入得分值");
+            return;
+        }
+        if(!/^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(score)){
+            $.msg("请输入正确的得分值");
+            return;
+        }
+        var gradeId = $("#gradeId").val();
+        var level = $("#level").val();
+        var obj = gradeTree.find(gradeId);
+        var minval = parseFloat(obj.minval);
+        var maxval = parseFloat(obj.maxval);
+        var temp = parseFloat(score);
+        if(temp>maxval || temp<minval){
+            $.msg("请输入 "+minval+"-"+maxval+" 的得分值");
+            return;
+        }
+        parent.addItemc('${quotaId!}','${itemId!}', gradeId, score, obj.fullname);
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+    function optClear() {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+</script>

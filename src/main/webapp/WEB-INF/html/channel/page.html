@@ -1,0 +1,6 @@
+<@p.table id="channelList" value=page url="/channel/page";item,i,has_next>
+<@p.column_checkbox name="ids" value="${item.id!}" width="10" val=""/><#t/>
+<@p.column title="栏目名称">${item.name!}</@p.column><#t/>
+<@p.column title="是否显示"><#if item.isDisplay! == '1'>是<#else>否</#if></@p.column><#t/>
+<@p.column title="排列顺序">${item.priority!}</@p.column><#t/>
+</@p.table>

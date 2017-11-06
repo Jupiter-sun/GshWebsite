@@ -1,0 +1,45 @@
+<div id="sidebar" class="sidebar responsive sidebar-fixed">
+    <ul class="nav nav-list">
+        <li id="li_home" <#if !(_submenuid_?? && _submenuid_!="home")>class="active"</#if>>
+            <a href="javascript:todo('/index','home')">
+                <i class="menu-icon iconfont icon-shouye"></i>
+                <span id="span_home" class="menu-text">首页</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <#list currMenus as menu>
+            <li id="li_${menu.id}" <#if _menuid_?? && _menuid_==menu.id>class="active open"</#if><#if _submenuid_?? && _submenuid_==menu.id>class="active"</#if>>
+                <#if menu.subMenus??>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon ${menu.img}"></i>
+                        <span id="span_${menu.id}" class="menu-text">${menu.name}</span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <#list menu.subMenus as sub>
+                            <li id="li_${sub.id}" <#if _submenuid_?? && _submenuid_==sub.id>class="active"</#if>>
+                                <a href="javascript:todo('${sub.url!}','${sub.id}','${menu.id}')">
+                                    <i class="menu-icon ${sub.img}"></i>
+                                    <span id="span_${sub.id}">${sub.name}</span>
+                                </a>
+                                <b class="arrow"></b>
+                            </li>
+                        </#list>
+                    </ul>
+
+                <#else>
+                    <a href="javascript:todo('${menu.url!}','${menu.id}','')">
+                        <i class="menu-icon ${menu.img}"></i>
+                        <span id="span_${menu.id}" class="menu-text">${menu.name}</span>
+                    </a>
+                    <b class="arrow"></b>
+                </#if>
+
+            </li>
+        </#list>
+    </ul>
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+</div>

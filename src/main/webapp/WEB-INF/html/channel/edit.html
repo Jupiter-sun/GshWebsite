@@ -1,0 +1,88 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" method="post" action="${ctx}/channel/edit" class="form-horizontal" role="form">
+                    <input type="hidden" name="id" value="${channel.id}"/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="name"> 栏目名称： </label>
+                            <div class="col-sm-8">
+                                <input type="text" name="name" value="${channel.name!}" id="name" class="col-xs-10 col-sm-5 required" placeholder="输入栏目名称"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="name"> 栏目排序：</label>
+                            <div class="col-sm-8">
+                                <input type="number" name="priority" value="${channel.priority!}" id="priority" class="col-xs-10 col-sm-5" placeholder="输入栏目排序"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="name"> 上级栏目： </label>
+                            <div class="col-sm-8">
+                                <input type="text" name="" value="${channel.parent.name!}" id="" class="col-xs-10 col-sm-5 required"  readonly="readonly"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="name"> 是否显示： </label>
+                            <div class="col-sm-8">
+                            	<#if channel.isDisplay??&&channel.isDisplay=='0'>
+	                                <div class="radio inline">
+	                                    <label>
+	                                        <input name="isDisplay" type="radio" class="ace" value="1"/>
+	                                        <span class="lbl"> 是</span>
+	                                    </label>
+	                                </div>
+	                                <div class="radio inline">
+	                                    <label>
+	                                        <input name="isDisplay" type="radio" class="ace" checked="checked" value="0" />
+	                                        <span class="lbl"> 否</span>
+	                                    </label>
+	                                </div>
+	                             <#else>
+	                                <div class="radio inline">
+	                                    <label>
+	                                        <input name="isDisplay" type="radio" class="ace" checked="checked" value="1"/>
+	                                        <span class="lbl"> 是</span>
+	                                    </label>
+	                                </div>
+	                                <div class="radio inline">
+	                                    <label>
+	                                        <input name="isDisplay" type="radio" class="ace"  value="0" />
+	                                        <span class="lbl"> 否</span>
+	                                    </label>
+	                                </div>
+                                </#if>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer" style="padding-top:10px;">
+    <div class="footer-inner">
+        <div class="footer-content" id="page-footer">
+            <button class="btn btn-info" onclick="save()" >
+                <i class="ace-icon fa fa-check bigger-110"></i>
+                保存
+            </button>
+            <button class="btn" onclick="$.close();" >
+                <i class="ace-icon fa fa-close bigger-110"></i>
+                关闭
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    function save(){
+        if($("#dForm").valid()){
+            $('#dForm').submit();
+        }
+    }
+</script>
+</body>
+</html>

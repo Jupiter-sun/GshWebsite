@@ -1,0 +1,10 @@
+<@p.table value=page id="userList" url="/user/page";item,i,has_next>
+<@p.column_checkbox name="ids" value="${item.id!}" width="20" val=""/><#t/>
+<@p.column title="用户名">${item.username!}</@p.column><#t/>
+<@p.column title="姓名">${item.truename!}</@p.column><#t/>
+<@p.column title="部门"><#if item.dept??>${item.dept.name!}</#if></@p.column><#t/>
+<@p.column title="用户类型"><#if item.type?? && (item.type=='2')>公安干<#elseif item.type?? && (item.type=='4')>学生<#else>其他</#if></@p.column><#t/>
+<@p.column title="电话">${item.mobile!}</@p.column><#t/>
+<@p.column title="邮件">${item.email!}</@p.column><#t/>
+<@p.column title="状态"><#if item.status?? && (item.status=='1')>正常<#elseif item.status?? && (item.status=='0')>禁用<#else>其他</#if></@p.column><#t/>
+</@p.table>

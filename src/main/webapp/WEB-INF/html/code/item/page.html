@@ -1,0 +1,9 @@
+<@p.table id="itemList" value=page url="/code/item/page";item,i,has_next>
+<@p.column_checkbox name="ids" value="${item.id!}" val=""/><#t/>
+<@p.column title="字典代码">${item.id!}</@p.column><#t/>
+<@p.column title="代码名称">${item.itemName!}</@p.column><#t/>
+<@p.column title="转换代码">${item.tranCode!}</@p.column><#t/>
+<@p.column title="上级代码">${item.parentId!}</@p.column><#t/>
+<@p.column title="是否有效"><#if item.status! == '1'>有效<#else>无效</#if></@p.column><#t/>
+<@p.column title="序号">${item.orderNo!}</@p.column><#t/>
+</@p.table>

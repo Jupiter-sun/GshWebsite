@@ -1,0 +1,30 @@
+$('#codeitem').tabSelect({
+tabElements: items,
+formElement: '#param',
+initValue:'${selectModel.value}',
+<#if selectModel.multiple??&&selectModel.multiple=='true'>multipleSelections:true<#else>multipleSelections:false,close:function(){optClick();}</#if>
+});
+var window_height = $(window).height();
+var footer_height = $("#page-footer").height();
+<#if selectModel.pinyin??&&selectModel.pinyin=='true'>
+    $('#codeitem').listnav({
+    allText:'全部',
+    filterSelector: '.pinyin',
+    noMatchText: '没有内容'
+    });
+    $("#codeitem").css("height",window_height-footer_height-74);
+    <#else>
+        $("#codeitem").css("height",window_height-footer_height-34);
+</#if>
+function optClick(){
+var params = $("#param").val();
+<#if selectModel.callback??>
+    parent.${selectModel.callback}(params);
+</#if>
+var index = parent.layer.getFrameIndex(window.name);
+parent.layer.close(index);
+}
+function optClear(){
+$('#codeitem').data('tabSelect').deselectAll();
+}
+</script>

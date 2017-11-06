@@ -1,0 +1,34 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <#if importDTO??>
+                <div class="row page-header">
+                    <h4>【${importDTO.showName!}】</h4>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>导入结果</h5>
+                        <#if result??>
+                            <p>
+                                <#list result as item>${item}<br></#list>
+                            </p>
+                            <form name="f" id="f" action="${ctx}/data_import/importData" method="post">
+                                <input type="hidden" name="pc" value="${pc!}">
+                                <input name="id" type="hidden" value="${importDTO.id}">
+                                <button class="btn btn-info" type="button" onclick="optReImport();">重新导入</button>
+                            </form>
+                        </#if>
+                    </div>
+                </div>
+            </#if>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    function optReImport(){
+        $("#f").submit();
+    }
+</script>

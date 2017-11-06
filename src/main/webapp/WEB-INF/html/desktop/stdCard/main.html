@@ -1,0 +1,57 @@
+<#include "/common/student_top.html"/>
+<h4 class="header blue bolder smaller">常用服务</h4>
+<div class="profile-users clearfix">
+    <div>
+        <div>
+            <button onclick="newApply()">新的申请</button>
+        </div>
+        <div class="inline pos-rel">
+            <table align="center" border="2px">
+                <thead>
+                <tr>
+                    <th>学年</th>
+                    <th>学期</th>
+                    <th>补办原因</th>
+                    <th>最终审批状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                 <#if list??>
+                    <#list list as item>
+                        <tr>
+                            <td class="text-center">${item.xq!}</td>
+                            <td class="text-center">${item.xn!}</td>
+                            <td class="text-center">${item.blyy!}</td>
+                            <#if item.spzt??&&item.spzt=='0'>
+                                <td class="text-center">未审核</td>
+                                <#elseif item.spzt??&&item.spzt=='1'>
+                                    <td class="text-center">未通过</td>
+                                    <#elseif item.spzt??&&item.spzt=='2'>
+                                        <td class="text-center">已通过</td>
+                            </#if>
+                            <td class="text-center">
+                                <a href="javascript:void(0)" onclick="optUpdate('${item.id}')">修改</a>
+                                <a href="javascript:void(0)" onclick="optDel('${item.id}')">删除</a>
+                            </td>
+                        </tr>
+                    </#list>
+                 </#if>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<#include "/common/student_bottom.html"/>
+<script type="text/javascript">
+    function optUpdate(id) {
+        window.location.href = addNoCache("${ctx}/CardApply/edit?id=" + id);
+    }
+    function optDel(id) {
+        window.location.href = addNoCache("${ctx}/CardApply/remove?id=" + id);
+    }
+    function newApply() {
+        window.location.href = addNoCache("${ctx}/CardApply/apply");
+    }
+</script>

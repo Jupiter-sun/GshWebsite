@@ -1,0 +1,59 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" class="form-horizontal" role="form">
+                       <div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right" for="username"> 用户名 </label>
+							<div class="col-sm-4">
+								<input type="text" name="username" value="${user.username!}" id="username"  class="col-xs-10 col-sm-10 required" readonly/>
+							</div>
+							<label class="col-sm-2 control-label no-padding-right" for="truename"> 姓名 </label>
+							<div class="col-sm-4">
+								<input type="text" name="truename" value="${user.truename!}" id="truename"  class="col-xs-10 col-sm-10 required" readonly/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right" for="deptname"> 部门</label>
+							<div class="col-sm-4">
+								<input type="text" name="deptname" value="${user.deptname!}" id="deptname"  class="col-xs-10 col-sm-10 " readonly/>
+							</div>
+							<label class="col-sm-2 control-label no-padding-right" for="usertype"> 用户类型 </label>
+							<div class="col-sm-4">
+								<input type="text" value="${user.usertype!}" name="usertype" id="usertype"  class="col-xs-10 col-sm-10 required" readonly/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right" for="tel"> 电话</label>
+							<div class="col-sm-4">
+								<input type="text" name="tel" value="${user.tel!}" id="tel"  class="col-xs-10 col-sm-10 " readonly/>
+							</div>
+							<label class="col-sm-2 control-label no-padding-right" for="email"> 邮箱</label>
+							<div class="col-sm-4">
+								<input type="text" name="email" value="${user.email!}" id="email"  class="col-xs-10 col-sm-10 " readonly/>
+							</div>
+						</div>
+                        <div class="hr hr-16 hr-dotted"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<<script type="text/javascript">
+$().ready(function(){
+	var usertype="${user.usertype}";
+	if(usertype=="0"){
+		$("#usertype").val("学生");
+	}else if(usertype=="1"){
+		$("#usertype").val("教工");
+	}else{
+		$("#usertype").val("其他");
+	}
+});
+</script>
+</html>

@@ -1,0 +1,118 @@
+<#include "/common/student_top.html"/>
+<h4 class="header blue bolder smaller">常用服务</h4>
+<div class="profile-users clearfix">
+    <div>
+        <div class="inline pos-rel">
+            <h2>基本信息</h2>
+            <form id="dForm" name="frm" method="post" action="${ctx}/CardApply/add" class="form-horizontal"
+                  role="form">
+                <input type="hidden" id="studentId" name="studentId" value="${map.xh!}">
+                <table align="center" border="2px">
+                    <tbody>
+                    <tr>
+                        <th>姓名：${map.xm!}</th>
+                        <th>学号：${map.xh!}</th>
+                    </tr>
+                    <tr>
+                        <th>性别：${map.xb!}</th>
+                        <th>民族：${map.mz!}</th>
+                    </tr>
+                    <tr>
+                        <th>身份证号：${map.sfzh!}</th>
+                        <th>出生日期：${map.csrq!}</th>
+                    </tr>
+                    <tr>
+                        <th>学院：${map.name!}</th>
+                        <th>专业：${map.zy!}</th>
+                    </tr>
+                    <tr>
+                        <th>班级：${map.bjmc!}</th>
+                        <th>联系电话：${map.sj!}</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <h2>补办信息</h2>
+                <label class="col-sm-2">现家庭住址：</label>
+                <div class="col-sm-4">
+                    <input type="text" name="jtzz" id="jtzz" value="${map.jtzz}" style="width: 80%"/>
+                </div>
+                <label class="col-sm-2 ">补办金额：</label>
+                <div class="col-sm-4">
+                    <input type="text" name="bbje" id="bbje" style="width: 80%" readonly/>
+                </div>
+                <label class="col-sm-2 ">补办原因：</label>
+                <div class="col-sm-4">
+                    <select id="blyy" name="blyy" style="width: 80%">
+                        <#list list as item>
+                            <option value="${item.id!}">${item.name!}</option>
+                        </#list>
+                    </select>
+                </div>
+                <label class="col-sm-2 ">是否需要火车优惠卡：</label>
+                <div class="col-sm-4">
+                    <@p.select id="sfxyyhk" name="sfxyyhk" items="1#是|0#否" placeholder="是否需要火车优惠卡" />
+                </div>
+                <label class="col-sm-2">现起点站：</label>
+                <div class="col-sm-4">
+                    <input type="text" name="ccqdz" id="ccqdz" value="${map.ccqsz}" readonly style="width: 80%">
+                </div>
+                <label class="col-sm-2">现终点站：</label>
+                <div class="col-sm-4">
+                    <input type="text" name="cczdz" id="cczdz" style="width: 80%" value="${map.cczdz}"/>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<div class="footer" style="padding-top:100px;">
+    <div class="footer-inner">
+        <div class="footer-content" id="page-footer">
+            <button class="btn btn-info" onclick="save()">
+                提交
+            </button>
+            <button class="btn" onclick="preview()">
+               返回
+            </button>
+        </div>
+    </div>
+</div>
+<#include "/common/student_bottom.html"/>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#sfxyyhk").change(function () {
+            optbbje()
+        });
+        $("#blyy").change(function () {
+            optbbje()
+        });
+    });
+    function optbbje() {
+        var sfxyyhk = $("#sfxyyhk").find("option:selected").val();
+        var bbje = 0;
+        if (sfxyyhk == "1") {
+            bbje = 10;
+        }
+        var BlYy = $("#blyy").find("option:selected").val();
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: "${ctx}/stdCard/queryBbJe",
+            data: "blyyId=" + BlYy,
+            dataTyp: "JSON",
+            success: function (dataResult) {
+                bbje = bbje + parseInt(dataResult);
+                $("#bbje").val(bbje);
+
+            }
+        });
+    }
+    function save() {
+        if ($("#dForm").valid()) {
+            $('#dForm').submit();
+        }
+    }
+    function preview() {
+        window.location.href = addNoCache("${ctx}/stdInfo/stuCard");
+    }
+</script>

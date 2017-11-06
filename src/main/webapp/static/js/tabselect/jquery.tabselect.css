@@ -1,0 +1,37 @@
+.tabselect span {
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-decoration: none;
+    line-height:30px;
+    cursor: hand;
+    cursor: pointer;
+    -webkit-border-radius: .2em;
+    -moz-border-radius: .2em;
+    border-radius: .2em;
+    padding-left: 5px;
+    display:-moz-inline-box;
+    display:inline-block;
+    width:200px;
+}
+.tabselect li{margin-bottom:10px;}
+.tabselect span.active {
+    background: #6fb3e0;
+    color: #fff;
+    border: 1px #6fb3e0 solid;
+}
+.tabselect span.active:hover {
+    background: #6fb3e0;
+    color: #fff;
+    border: 1px #6fb3e0 solid;
+}
+
+.tabselect span.inactive {
+    background: #e6e6e6;
+    color: #444;
+    border: 1px #e6e6e6 solid;
+}
+.tabselect span.inactive:hover {
+    background: #e6e6e6;
+    color: #444;
+    border: 1px #e6e6e6 solid;
+}

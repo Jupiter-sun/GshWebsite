@@ -1,0 +1,64 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" method="post" action="${ctx}/dept/major/edit" class="form-horizontal" role="form">
+                        <input type="hidden" name="id" value="${major.id}"/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="zyh"> 专业号： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="zyh" value="${major.zyh!}" id="zyh" class="col-xs-10 col-sm-10 required" readonly="readonly" placeholder=""/>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right" for="zy"> 专业名称： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="zy" value="${major.zy!}" id="zy" class="col-xs-10 col-sm-10 required" placeholder="输入专业名称"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label no-padding-right" for="xy"> 学院： </label>
+                            <div class="col-sm-4">
+                            	<@p.xy id="xyId" hiddenId="xyid" hiddenName="xy.id" value="${major.xy?if_exists.name!}" hiddenValue="${major.xy?if_exists.id!}"/>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right" for="xz"> 学制： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="xz" value="${major.xz!}" id="" class="col-xs-10 col-sm-10" placeholder="输入学制"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label no-padding-right" for="xy"> 学科门类： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="xkml" value="${major.xkml!}" id="xkml" class="col-xs-10 col-sm-10" placeholder="输入学科门类"/>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer" style="padding-top:10px;">
+	<div class="footer-inner">
+		<div class="footer-content" id="page-footer">
+			<button class="btn btn-info" onclick="save()" >
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				保存
+			</button>
+			<button class="btn" onclick="$.close();" >
+				<i class="ace-icon fa fa-close bigger-110"></i>
+				关闭
+			</button>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    function save(){
+        if($("#dForm").valid()){
+            $('#dForm').submit();
+        }
+    }
+</script>

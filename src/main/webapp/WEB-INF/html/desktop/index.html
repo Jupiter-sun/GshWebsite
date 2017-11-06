@@ -1,0 +1,68 @@
+<#include "/common/student_top.html"/>
+<h4 class="header blue bolder smaller">常用服务</h4>
+<div class="profile-users clearfix">
+    <div class="itemdiv memberdiv">
+        <div class="inline pos-rel">
+            <ul></ul>
+            <div class="user">
+                <a href="#" onclick="ceping()">
+                    <img src="${ctx}/static/images/yellow.png" alt="Bob Doe's avatar">
+                </a>
+            </div>
+
+            <div class="body">
+                <div class="name">
+                    <a href="#" onclick="ceping()">
+                        综合测评
+                    </a>
+                </div>
+            </div>
+            <div class="user">
+                <a href="#" onclick="poor()">
+                    <img src="${ctx}/static/images/yellow.png" alt="Bob Doe's avatar">
+                </a>
+            </div>
+
+            <div class="body">
+                <div class="name">
+                    <a href="#" onclick="poor()">
+                        奖助学金申请
+                    </a>
+                </div>
+            </div>
+            <div  class="user">
+                <a href="#" onclick="stuCard()">
+                    <img src="${ctx}/static/images/jlfw.png" alt="Bob Doe's avatar">
+                </a>
+            </div>
+            <div class="body">
+                <div class="name">
+                    <a href="#" onclick="stuCard()">
+                        学生卡补办
+                    </a>
+                </div>
+            </div>
+            <div class="popover right">
+                <div class="arrow"></div>
+                <div class="popover-content">
+                    <div class="bolder">综合测评</div>
+                    <div class="time">
+                        <span class="green"> 综合素质测评综合素质测评综合素质测评综合素质测评综合素质测评综合素质测评综合素质测评 </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ceping() {
+        window.location.href = addNoCache("${ctx}/cepingApply/index");
+    }
+    function poor() {
+        window.location.href = addNoCache("${ctx}/poorApply/index");
+    }
+    function stuCard() {
+        window.location.href = addNoCache("${ctx}/CardApply/stuCard");
+    }
+</script>
+<#include "/common/student_bottom.html"/>

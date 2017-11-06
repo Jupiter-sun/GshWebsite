@@ -1,0 +1,116 @@
+<#include "/common/top.html"/>
+<div class="row">
+	<div class="col-xs-2">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat">
+						<h4 class="widget-title">栏目树</h4>
+					</div>
+
+					<div class="widget-body">
+						<div class="widget-main">
+							<div class="row">
+								<ul id="channelTree" class="ztree"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="col-xs-10">
+		<div class="row page-header">
+			<div class="col-xs-6">
+				<span>标题：<input type="text" id="title" name="title"></span>
+				<span><button class="btn btn-info" type="button" onclick="optQuery()"><i class="fa fa-search bigger-80"></i>&nbsp;查询</button></span>
+			</div>
+			<div class="col-xs-6">
+        	<span class="block pull-right">
+            <button class="btn btn-info" onclick="optAdd()" ><i class="fa fa-plus bigger-80"></i>&nbsp;新增</button>
+            <button class="btn btn-info" onclick="optUpdate()" ><i class="fa fa-pencil bigger-80"></i>&nbsp;编辑</button>
+            <button class="btn btn-info" onclick="optDel()" ><i class="fa fa-trash bigger-80"></i>&nbsp;删除</button>
+			</span>
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="contentList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="channelid" id="channelid" value="">
+<#include "/common/bottom.html"/>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.fn.zTree.init($("#channelTree"), setting);
+	});
+	var setting = {
+		async: {
+			enable: true,
+			url:addNoCache("${ctx}/content/getChannels"),
+			autoParam:["id=fid"]
+		},
+		simpleData: {
+			enable: false,
+			idKey: "id",
+			pIdKey: "pId",
+			rootPId: null
+		},
+		callback: {
+			onClick: onClick,
+			onAsyncSuccess: zTreeOnAsyncSuccess
+		}
+	};
+	
+	function onClick(event, treeId, treeNode) {
+		var id = treeNode.id;
+		$("#channelid").val(id);
+	    //$("#titleName").html(treeNode.name);
+	    if(id=='1'){
+	    	$("#button").hide();
+	    }else{
+	    	$("#button").show();
+	    }
+	    loadGrid("contentList", addNoCache("${ctx}/content/page"), getWhere());
+	}
+	
+	function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+		var treeObj = $.fn.zTree.getZTreeObj(treeId);
+		var nodes = treeObj.getNodes();
+		if (nodes.length>0) {
+			treeObj.expandNode(nodes[0], true, false, true);
+			var node = treeObj.getNodeByParam('id', 1);
+			treeObj.selectNode(nodes[0]);
+			treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);//调用事件  
+		}
+	}
+
+    function optQuery(){
+        loadGrid("contentList", addNoCache("${ctx}/content/page"), getWhere());
+    }
+	function optAdd() {
+		$.dialog("${ctx}/content/toAdd?pId=" + $("#channelid").val(), "新增信息", "800","550");
+	}
+	function optUpdate() {
+		if (checkedCount('ids') != 1) {
+			$.msg("请选择一项");
+			return;
+		}
+		$.dialog(addNoCache("${ctx}/content/toEdit?" + getWhereStr()), "编辑信息","800", "550");
+	}
+	function optDel() {
+    	if(checkedCount('ids')<=0) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.confirm("确认删除吗?",function(){
+            $.remove("${ctx}/content/remove", optQuery);
+        });
+    }
+	
+	function optView(id) {
+		$.dialog(addNoCache("${ctx}/content/toView?id=" + id), "信息详情","800", "550");
+    }
+</script>

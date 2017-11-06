@@ -1,0 +1,14 @@
+<#assign ctx=rc.contextPath/>
+<div class="row">
+	<div class="col-xs-12">
+		<div id="deptList">
+			<@p.table id="deptList" value=page url="/dept/deptList";item,i,has_next>
+			<@p.column_checkbox name="ids" value="${item.id!}" val=""/><#t/>
+			<@p.column title="单位代码">${item.code!}</@p.column><#t/>
+			<@p.column title="单位名称">${item.name!}</@p.column><#t/>
+			<@p.column title="父单位"><#if item.father??>${item.father.name!}</#if></@p.column><#t/>
+			<@p.column title="是否使用"><#if item.status! == '1'>是<#else>否</#if></@p.column><#t/>
+			</@p.table>
+		</div>
+	</div>
+</div>

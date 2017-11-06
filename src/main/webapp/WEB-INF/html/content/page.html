@@ -1,0 +1,6 @@
+<@p.table id="channelList" value=page url="/channel/page";item,i,has_next>
+<@p.column_checkbox name="ids" value="${item.id!}" val=""/><#t/>
+<@p.column title="标题"><a href="javascript:void(0)" onclick=optView(${item.id!})>${item.title!}</a></@p.column><#t/>
+<@p.column title="固定级别">${item.topLevel!}</@p.column><#t/>
+<@p.column title="描述">${item.description!}</@p.column><#t/>
+</@p.table>

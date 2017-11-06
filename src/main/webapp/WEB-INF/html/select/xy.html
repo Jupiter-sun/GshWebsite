@@ -1,0 +1,5 @@
+<#include "head.html"/>
+<#list list as item>
+    items[${item_index}]="${item.xyId}|||${item.xy}|||${item.pinyin!}";
+</#list>
+<#include "foot.html"/>

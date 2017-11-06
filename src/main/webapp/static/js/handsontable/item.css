@@ -1,0 +1,434 @@
+@charset "UTF-8";
+/* CSS Document */
+/*---------------------------------------common---------------------*/
+html,body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+   .lock_x
+    {overflow-x: hidden;
+	overflow-y: auto;}
+
+.clearspace
+
+{margin:0;padding:0}
+/*加边框（测试用）*/
+.border
+{
+  border: 1px solid #ddd;
+}
+
+   .green{color: #32be77}
+
+
+/*主页面容器*/
+ div.main_container
+        {
+          margin-left:20px;
+          margin-right: 20px; 
+        }
+
+.col-xs-13{width:9.5%;float:left}
+/* -----------------------遮蔽层样式-*/
+
+    div.bg_cover {
+	top: 102;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+    z-index:997;
+	-moz-opacity: 0.8;
+	filter: alpha(opacity = 80);
+    	/* background-color: #bbb; */
+
+	background-color: #333;
+	filter: alpha(opacity = 80); /*IE*/
+	opacity: 0.8; /*FF*/
+	   position: absolute;/*IE6*/
+}
+
+
+/*底部栏*/
+div.foot_bar
+{width:100%;
+height:180px;
+color:white;
+    text-align:center !important;
+padding: 20px;
+    background-color:#393939;
+}
+.foot_bar a
+{color:#fff}
+
+
+/* 红色菜单栏*/
+
+.nav-red{background: #f5f5f5;}
+.nav-red a{color: #ff5a5f;}
+a.hover-red:hover{background:#ff5a5f !important;color:#fff}
+a.hover-blue:hover{background:#428bca !important}
+/* 灰色背景*/
+.bg_grey
+{background-color: #f5f5f5;}
+
+/*无用文本*/
+.text_del
+{color:#999;
+  text-decoration:line-through;
+} 
+
+/*文本省略*/
+.text_ellipsis
+{
+overflow: hidden;
+ -o-text-overflow: ellipsis;
+white-space: nowrap;
+text-overflow: ellipsis;
+}
+/*首行缩进*/
+.suojin{text-indent:2em} 
+/*宽度*/
+.w30
+{width: 30px;}
+.w50
+{width: 50px;}
+.w70
+{width: 70px;}
+.w120
+{width: 120px;}
+.w200
+{width: 200px}
+
+/*外边距*/
+.ml5
+{margin-left: 5px;}
+.ml10
+{margin-left: 10px;}
+.ml20
+{margin-left: 20px;}
+
+
+.mr10
+{margin-right:10px;}
+.mr20
+{margin-right:20px;}
+
+.mt5
+{margin-top: 5px;}
+.mt10
+{margin-top: 10px;}
+.mt20
+{margin-top: 20px;}
+.mt50
+{margin-top: 50px;}
+
+
+.mb10
+{margin-bottom: 10px;}
+.mb20
+{margin-bottom: 20px;}
+.mb50
+{margin-bottom: 50px;}
+
+
+.p10
+{padding: 10px;}
+.p20
+{padding: 20px;}
+.p30
+{padding: 30px;}
+.p50
+{padding: 40px;}
+
+ /* 表格td中 a标签左浮动(消息自动下拉框)*/
+td.mes a
+{float:left;
+color:#E54028 !important;}
+
+
+  /*---------------------------------------for help 帮助中的样式---------------------*/
+
+ /* --左栏导航样式--*/
+
+ ul.how li a{display:block;padding: 5px 15px;color:#888;font-size:17px;text-decoration:none;}
+     ul.how li a:hover{color:#444;font-weight: bold;text-decoration:none;}
+     ul.how li a.active{color:#444;font-weight: bold;text-decoration:none ;}
+     ul.how li a:focus{color:#444;font-weight: bold;text-decoration:none;outline: none;}
+/* --右侧详情框样式--*/
+.howrentout {background: #fff;color: #555}
+.howrentout a{color: #FF5A5F;
+text-decoration: none;
+margin-top: 50px}
+
+/*---------------------------------------for house_list---------------------*/
+<!--分页插件-->
+    
+    a {
+        color: #428bca;
+        text-decoration: none;
+    }
+
+    a:hover {
+        
+        text-decoration: underline;
+    }
+
+    a:focus, input:focus {
+        outline-style: none;
+        
+        outline-width: medium;
+    }
+
+    /* custom css style: pageNum,cPageNum */
+    .pageNum {
+       border: 1px solid #ddd;
+        padding: 8px;
+        display: inline-block;
+        margin: 3px;
+    }
+
+    .cPageNum {
+        color: #fff;
+        background-color: #5bc0de;
+               
+        padding: 8px;
+        display: inline-block;
+        margin: 3px;
+
+    }
+    #pageNav{
+        -moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+    }
+    #pageNav a:hover {
+        text-decoration: none;
+        color: #fff;
+        background-color: #5bc0de;
+    }
+
+        /*二级菜单自动展开*/
+ li.li_2,.li_3 { position: relative !important; z-index: 100 !important; }
+li.li_2 a:hover,.li_3 a:hover{background:#ff5a5f}
+        .li_2_content{ position: absolute; top: 60px; left: -30px;z-index: 99; display: none;background:#fff;border: 1px solid #aaa;width:150px }
+.li_3_content { position: absolute; top: 60px; left: 0px;z-index: 99; display: none;background:#fff;border: 1px solid #aaa;width:130px }
+dl.li_2_content a:hover,.li_3_content a:hover { color: #d9534f !important; background-color: #f5f5f5}
+dl.li_2_content dd a,.li_3_content dd a { padding: 6px 15px; color: #444; text-decoration:none;display: block;}
+
+        
+        /*消息悬浮下拉框*/
+.nav-w {
+  z-index:21;
+  position:absolute;
+  display:none;
+  width: 500px;
+
+  float:left;
+  clear:both;
+  overflow:hidden;
+  top:50px;
+  border: 1px solid #b4b4b4;
+border-top: none;
+background: #fafafa;
+border-radius: 0 0 5px 5px;
+  box-shadow: 0 6px 10px #999;
+  left:-350px;
+}
+
+
+/*缩微图文容器*/
+div.houselist_item
+{
+  width: 320px;
+  height: 320px;
+  
+   
+  border: 0px solid #c3c3c3;
+}
+/*缩微图*/
+div.houselist_item_img
+{
+width: 100%;
+ overflow: hidden;
+  background-color:#c0c0c0;
+  
+}
+
+.media-cover
+          {
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+          }
+.media-photo
+{
+    overflow: hidden;
+    background:#cacccd;
+}
+
+.listing-img
+     {
+        padding-bottom: 68%;
+     }
+
+     .panel-image
+     {
+        position: relative;
+     }
+     .img-responsive-height
+     {
+        width: auto;
+        height: 100%;
+     }
+
+/*收藏图标*/
+
+.like
+{
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  text-shadow:2px 2px 5px #FFf;
+  z-index: 8;
+   color: #000;
+  filter:alpha(opacity=60); 
+-moz-opacity:0.6; 
+opacity:0.6;
+}
+.like_white
+{
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  text-shadow:2px 2px 5px #FFf;
+  z-index: 9;
+   color: #ffffff;
+  
+}
+.like i:hover
+{filter:alpha(opacity=80); 
+-moz-opacity:0.8; 
+opacity:0.8;}
+
+div.hover_red
+{border:1px solid #fff;}
+div.hover_red:hover
+{border:1px solid #ff5a5f;}
+/*价格标签容器*/
+.price_tag
+{
+    position: absolute;
+  bottom: 15%;
+  left: 0px;
+  padding: 8px;
+  background-color: #3c3f40;
+  border: 1px solid #c3c3c3;
+  text-align: center;
+
+  /* for IE */
+  filter:alpha(opacity=90);
+  /* CSS3 standard */
+  opacity:0.9;
+}
+
+.caption
+{padding-left:8px;padding-right:8px}
+
+div.houselist_info
+{
+ 
+font-size:15px;
+color:#999;
+}
+ 
+
+/* 商圈选择样式 */
+
+ .subarea
+     {padding: 10px;
+      margin-top:20px; 
+    background-color:#fff;
+   
+   
+     }
+  .subarea a
+     {
+      padding: 2px;
+      margin:3px; 
+    font-size:13px;
+      color:#888;}
+  .subarea b
+      {margin-left: 10px;
+        margin-right: 8px;
+
+      color: #d9534f;}
+  .subarea a:hover {
+background: #d9534f;
+      color:#fff;  
+            
+    }
+ .subarea a.selected
+    {background: #d9534f;
+      color:#fff;}
+/*---------------------------------------for house_info---------------------*/
+
+div.flow_img
+{width:100%;
+height:500px;
+overflow:hidden;
+}
+
+/*房源详细页面标题栏*/
+div.info_title_bar
+{
+
+margin-top: 10px;
+margin-bottom: 10px;
+
+}
+
+/*hover红色*/
+.c_table
+{}
+.c_table tr th
+{border-top:0 !important;}
+.c_table tr td
+{border-top:0 !important;}
+
+/* 房子预定浮动框*/
+.house_ordertag
+{position:absolute; width:300px; border:1px solid #ccc;
+background:#fff}
+.house_ordertag1
+{width:99%;height:auto;background:#ccc;padding: 10px;}
+
+.fixer
+{ position:fixed; z-index:10;top:10px;_position:absolute;_top:expression(documentElement.scrollTop+5 + "px")}
+
+
+/*---------------------------------------for admin_interface---------------------*/
+
+
+/*列表框格式*/
+.list_1 td{padding:10px;background:#f5f5f5;color:#999}
+.list_1 td .title{position:relative;width:100%;float:left}
+.list_1 td .img{float:left;margin:2px 10px 0 5px;width:100px;height:75px}
+
+/*jquery客服 css*/
+.izl-rmenu{position:fixed; right:3px; bottom:10px; padding-bottom:73px; z-index:999; }
+.izl-rmenu .btn1{width:40px; height:40px; margin-bottom:1px; cursor:pointer; position:relative;border-radius: 3px;}
+.izl-rmenu .btn-qq{ background-color:#6da9de;}
+.izl-rmenu .btn-qq:hover{background-color:#488bc7;}
+.izl-rmenu a.btn-qq,.izl-rmenu a.btn-qq:visited{background-color:#6da9de; text-decoration:none; display:block;}
+.izl-rmenu .btn-wx{background-color:#78c340;}
+.izl-rmenu .btn-wx:hover{background-color:#58a81c;}
+.izl-rmenu .btn-wx .pic{position:absolute; left:-160px; top:0px; display:none;width:160px;height:160px;}
+.izl-rmenu .btn-phone{background:url() 0px 0px no-repeat; background-color:#fbb01f;}
+.izl-rmenu .btn-phone:hover{background-color:#ff811b;}
+.izl-rmenu .btn-phone .phone{background-color:#ff811b; position:absolute; width:160px; left:-160px; top:0px; line-height:40px; color:#FFF; font-size:18px; text-align:center; display:none;}
+.izl-rmenu .btn-top{background-color:#666666; display:none;}
+.izl-rmenu .btn-top:hover{background-color:#444;}
+.btn1 i{margin:6px 9px;color:#fff;}

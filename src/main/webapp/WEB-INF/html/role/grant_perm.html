@@ -1,0 +1,81 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" method="post" action="${ctx}/role/grantPerms" class="form-horizontal" role="form">
+                        <input type="hidden" name="id" value="${id}"/>
+                        <div class="form-group">
+                            <#list perms as perm>
+                                <div class="row" style="margin-bottom:10px;">
+                                    <div class="col-xs-12">
+                                        <div style="background:#f2f2f2; padding:3px 10px 10px 10px;"><span class="${perm.img}"></span> ${perm.permname!}
+                                            <div class="checkbox inline">
+                                            <label>
+                                                <input type="checkbox" class="ace" onclick="checkAll('${perm_index}', this.checked)"/>
+                                                <span class="lbl"></span>
+                                            </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <#list perm.subPerms as sub>
+                                                <div class="col-xs-3">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input id="perm${perm_index}_${sub_index}" name="permIds" type="checkbox" class="ace" value="${sub.permid!}"/>
+                                                            <span class="lbl"> ${sub.permname!}</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <#list rolePerms! as rolePerm>
+                                                    <#if sub.permid == rolePerm.permString>
+                                                        <script type="text/javascript">
+                                                            $("#perm${perm_index}_${sub_index}").attr("checked","checked");
+                                                        </script>
+                                                    </#if>
+                                                </#list>
+                                            </#list>
+                                        </div>
+                                    </div>
+                                </div>
+                            </#list>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer" style="margin-top:10px;padding-top:10px;">
+    <div class="footer-inner">
+        <div class="footer-content" id="page-footer">
+            <button class="btn btn-info" onclick="save()" >
+                <i class="ace-icon fa fa-check bigger-110"></i>
+                保存
+            </button>
+            <button class="btn" onclick="$.close();" >
+                <i class="ace-icon fa fa-close bigger-110"></i>
+                关闭
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $('.chosen-select').chosen({allow_single_deselect:true});
+    function save(){
+        if($("#dForm").valid()){
+            $('#dForm').submit();
+        }
+    }
+    function checkAll(id, checked){
+        $("input[id^=perm"+id+"]").each(function() {
+            $(this).prop("checked", checked);
+        });
+    }
+</script>
+</body>
+</html>

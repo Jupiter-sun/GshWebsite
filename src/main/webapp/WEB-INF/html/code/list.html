@@ -1,0 +1,157 @@
+<#include "/common/top.html"/>
+<div class="row">
+	<div class="col-md-2">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat">
+						<h4 class="widget-title">代码树</h4>
+						<span class="widget-title block pull-right padding-right" >
+										<label class="btn-group-sm">
+											<i title="刷新" id="add_kind_btn" class="glyphicon glyphicon-refresh bigger-100" style="cursor:pointer;" onclick="reFreshTree('tree')"></i> &nbsp;&nbsp;
+										</label>
+									</span>
+					</div>
+
+					<div class="widget-body">
+						<div class="widget-main">
+							<div class="row">
+								<ul id="tree" class="ztree"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-10">
+		<div class="row page-header">
+			<div class="col-xs-12">
+			<span class="block pull-right">
+				<button class="btn btn-info" onclick="optAdd()" ><i class="fa fa-plus bigger-80"></i>&nbsp;新增</button>
+				<button class="btn btn-info" onclick="optEdit()" ><i class="fa fa-pencil bigger-80"></i>&nbsp;编辑</button>
+				<button class="btn btn-info" onclick="optDel()" ><i class="fa fa-trash bigger-80"></i>&nbsp;删除</button>
+			</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="itemList">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input type="hidden" name="id" id="id"/>
+<input type="hidden" name="pid" id="pid" value=""/>
+<input type="hidden" name="kindId" id="kindId" value=""/>
+<input type="hidden" name="parentId" id="parentId" value=""/>
+<#include "/common/bottom.html"/>
+<script type="text/javascript">
+	$(document).ready(function(){
+		loadGrid("itemList",addNoCache("${ctx}/code/kind/page") , getWhere());
+		$.fn.zTree.init($("#tree"), setting);
+	});
+	var setting = {
+		async: {
+			enable: true,
+			url:addNoCache("${ctx}/code/kindtree"),
+			autoParam:["id","pId"]
+		},
+		simpleData: {
+			enable: false,
+			idKey: "id",
+			pIdKey: "pId",
+			rootPId: null
+		},
+		callback: {
+			onClick: onClick,
+			onAsyncSuccess: zTreeOnAsyncSuccess
+		}
+	};
+	function onClick(event, treeId, treeNode) {
+		var url;
+		if(treeNode.isParent){
+			$("#id").val(treeNode.id);
+			$("#kindId").val("");
+			url = "${ctx}/code/kind/page";
+		}else{
+			$("#kindId").val(treeNode.id);
+			url = "${ctx}/code/item/page";
+		}
+		loadGrid("itemList",addNoCache(url) , getWhere());
+	}
+
+	function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+		var treeObj = $.fn.zTree.getZTreeObj(treeId);
+		var nodes = treeObj.getNodes();
+		treeObj.expandNode(nodes[0], true, false, true);
+	}
+
+	function reFreshTree(treeId) {
+		var zTree = $.fn.zTree.getZTreeObj(treeId);
+		var nodes = zTree.getSelectedNodes();
+		if (nodes.length > 0) {
+			for (var i = 0; i < nodes.length; i++) {
+				var node = nodes[i];
+				zTree.reAsyncChildNodes(node, "refresh");
+			}
+		} else {
+			zTree.reAsyncChildNodes(null, "refresh");
+		}
+	}
+
+	function optQuery(){
+		reFreshTree("tree");
+		var url;
+		var kindId =$("#kindId").val();
+		if(kindId!=null && kindId!=""){
+			url = "${ctx}/code/item/page";
+		}else{
+			url = "${ctx}/code/kind/page";
+		}
+		loadGrid("itemList",addNoCache(url) , getWhere());
+	}
+	function optAdd() {
+		var kindId =$("#kindId").val();
+		if(kindId!=null && kindId!=""){
+			$.dialog("${ctx}/code/item/toAdd?kindId="+kindId+"&parentId="+kindId, "新增代码分类项目", "800","500");
+		}
+		else{
+			var pId = $("#id").val();
+			pId = encodeURI(encodeURI(pId));
+			$.dialog("${ctx}/code/kind/toAdd?pId="+pId, "新增代码分类", "800","500");
+		}
+	}
+	function optEdit() {
+		var kindId =$("#kindId").val();
+		if (checkedCount('ids') != 1) {
+			$.msg("请选择一项");
+			return;
+		}
+		if(kindId!=null && kindId!=""){
+			$.dialog(addNoCache("${ctx}/code/item/toEdit?"+getWhereStr()), "编辑代码分类项目","800", "550");
+		}
+		else{
+			$.dialog(addNoCache("${ctx}/code/kind/toEdit?"+getWhereStr()), "编辑代码分类","800", "550");
+		}
+	}
+	function optDel() {
+		var kindId =$("#kindId").val();
+		if (checkedCount('ids') != 1) {
+			$.msg("请选择一项");
+			return;
+		}
+		if(kindId!=null && kindId!=""){
+			$.confirm("确认删除吗?",function(){
+				$.remove("${ctx}/code/item/remove", optQuery);
+			});
+		}
+		else{
+			$.confirm("确认删除吗?",function(){
+				$.remove("${ctx}/code/kind/remove", optQuery);
+			});
+		}
+	}
+
+</script>

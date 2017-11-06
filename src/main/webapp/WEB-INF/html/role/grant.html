@@ -1,0 +1,102 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-6">
+                        <div>
+                            <h4 class="row header smaller lighter blue">
+                                <span class="col-xs-6"> 已分配用户 </span>
+                                <span class="col-xs-6">
+                                    <span class="pull-right inline">
+                                    <@shiro.hasPermission name="system:remove"><button class="btn btn-xs btn-info" id="delete" onclick="optDel()" ><i class="fa fa-trash bigger-80"></i>&nbsp;删除</button></@shiro.hasPermission>
+                                    </span>
+                                </span>
+                            </h4>
+                        </div>
+                        <div id="roleuser"></div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div>
+                            <h4 class="header smaller lighter blue">选择用户</h4>
+                        </div>
+                        <form id="userForm" class="form-horizontal" role="form">
+                            <input type="hidden" name="roleId" id="roleId" value="${roleId!}"/>
+                            <input type="hidden" name="pId" id="pId" />
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                姓名：<input type="text" name="truename" value="" id="truename" class="width-70" placeholder="请输入姓名"/>
+                            </div>
+
+                            <div class="col-xs-6">
+                                用户名：<input type="text" name="username" value="" id="username" class="width-70" placeholder="请输入用户名"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                部门：<@p.common type="dept" id="glbm" hiddenId="glbmid" hiddenName="dept.id" placeholder="请选择部门" />
+                            </div>
+                            <div class="col-xs-6" style="text-align:center">
+                                <button class="btn btn-xs btn-info" type="button" id="query" onclick="Query()">
+                                    <i class="fa fa-search bigger-80"></i>&nbsp;查询
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-xs btn-info" type="button" id="choose">
+                                    <i class="fa fa-check bigger-80"></i>&nbsp;选择
+                                </button>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div id="usersList"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+        optQuery();
+    });
+
+	function optQuery(){
+        loadGrid("roleuser", addNoCache("${ctx}/role/getPagerByRole?roleId=${roleId}"), getFormWhere("roleuser"));
+	}
+
+    function Query(){
+        loadGrid("usersList", addNoCache("${ctx}/role/userspage"), getFormWhere("userForm"));
+    }
+
+    function optDel(){
+        if(checkedCount('ids')<=0) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.confirm("确认删除吗?",function(){
+            $.removeForTab("${ctx}/role/removeRoleUsers?roleId=${roleId}","roleuser",optQuery);
+        });
+    }
+
+   $("button[id='choose']").click(function(){
+       var usersid="";
+       $("input:checkbox[name='uids']:checked").each(function() {
+           usersid += $(this).val() + ",";
+       });
+       $.ajax({
+           type:"POST",
+           url:addNoCache("${ctx}/role/addUser"),
+           data:{"roleId":$("#roleId").val(),"usersid":usersid},
+           cache:false,
+           dataType:"json",
+           success: function(dataResult){
+               optQuery();
+               $.msg(dataResult.errmsg);
+           }
+       });
+   });
+</script>

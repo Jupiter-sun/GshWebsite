@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:cache="http://www.springframework.org/schema/cache"
+	   xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache
+		http://www.springframework.org/schema/cache/spring-cache.xsd"
+		default-lazy-init="false">
+	<context:property-placeholder
+			ignore-unresolvable="true" location="classpath*:/application.properties"/>
+
+	<tx:annotation-driven />
+	<context:annotation-config />
+	<context:component-scan base-package="cn.yfjz">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!--<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="${jndiName}"/>
+	</bean>-->
+
+	<!-- 阿里 druid数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		  init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="filters" value="stat" />
+
+		<property name="maxActive" value="20" />
+		<property name="initialSize" value="1" />
+		<property name="maxWait" value="60000" />
+		<property name="minIdle" value="1" />
+
+		<property name="timeBetweenEvictionRunsMillis" value="3000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+	</bean>
+
+
+	<!-- 配置jdbcCall 用于调用存储过程和数据库函数 ,不要使用单例模式!!!!!! -->
+	<bean id="jdbcCall" scope="prototype"
+		  class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<import resource="classpath:default-ebean-server.xml"/>
+	<bean id="serverConfig" parent="defaultEbeanServerConfig">
+		<property name="defaultServer" value="true"/>
+		<property name="name" value="ebeanServer"/>
+		<property name="packages">
+			<list>
+				<value>cn.yfjz.core.sys.domain</value>
+				<value>cn.yfjz.website.domain</value>
+			</list>
+		</property>
+
+		<property name="dataSource" ref="dataSource"/>
+		<!--<property name="disableClasspathSearch" value="true"/>-->
+		<!--是否生成sql文件-->
+		<property name="ddlGenerate" value="${ebean.ddlGenerate}"/>
+		<!--时候启动时读取sql文件，并执行-->
+		<property name="ddlRun" value="${ebean.ddlRun}"/>
+		<property name="ddlSeedSql" value="${ebean.ddlSeedSql}"/>
+	</bean>
+
+	<!-- Ebean server -->
+	<bean id="ebeanServer" class="com.avaje.ebean.springsupport.factory.EbeanServerFactoryBean">
+		<property name="serverConfig" ref="serverConfig"/>
+	</bean>
+
+	<cache:annotation-driven/>
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="baseDataCache"/>
+			</set>
+		</property>
+	</bean>
+	<bean class="cn.yfjz.core.util.SpringContextUtil" />
+</beans>

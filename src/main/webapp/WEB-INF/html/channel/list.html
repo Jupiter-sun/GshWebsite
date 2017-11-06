@@ -1,0 +1,121 @@
+<#include "/common/top.html"/>
+<div class="row">
+    <div class="col-xs-2">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-flat">
+                        <h4 class="widget-title">栏目树</h4>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <ul id="channelTree" class="ztree"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-10">
+		<div class="row page-header">
+			<div class="col-xs-12">
+        	<span class="block pull-right">
+            <button class="btn btn-info" onclick="optAdd()" ><i class="fa fa-plus bigger-80"></i>&nbsp;新增</button>
+            <button class="btn btn-info" onclick="optUpdate()" ><i class="fa fa-pencil bigger-80"></i>&nbsp;编辑</button>
+            <button class="btn btn-info" onclick="optDel()" ><i class="fa fa-trash bigger-80"></i>&nbsp;删除</button>
+			</span>
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="channelList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="channelid" id="channelid" value="">
+<#include "/common/bottom.html"/>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.fn.zTree.init($("#channelTree"), setting);
+});
+var setting = {
+	async: {
+		enable: true,
+		url:addNoCache("${ctx}/channel/getChannels"),
+		autoParam:["id=fid", "pId"]
+	},
+	simpleData: {
+		enable: false,
+		idKey: "id",
+		pIdKey: "pId",
+		rootPId: null
+	},
+	callback: {
+		onClick: onClick,
+		onAsyncSuccess: zTreeOnAsyncSuccess
+	}
+};
+
+function onClick(event, treeId, treeNode) {
+	var id = treeNode.id;
+	$("#channelid").val(id);
+    loadGrid("channelList", addNoCache("${ctx}/channel/page"), getWhere());
+}
+
+function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+	var treeObj = $.fn.zTree.getZTreeObj(treeId);
+	var nodes = treeObj.getNodes();
+	if (nodes.length>0) {
+		treeObj.expandNode(nodes[0], true, false, true);
+		var node = treeObj.getNodeByParam('id', 1);
+		treeObj.selectNode(nodes[0]);
+		treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);//调用事件  
+	}
+}
+
+    function reFreshTree(treeId){
+		var zTree = $.fn.zTree.getZTreeObj(treeId);
+		var nodes = zTree.getSelectedNodes();
+		if (nodes.length>0) {
+			for(var i=0;i<nodes.length;i++){
+				var node = nodes[i];
+				zTree.reAsyncChildNodes(node, "refresh");
+			}
+		}else{
+			zTree.reAsyncChildNodes(null, "refresh");
+		}
+	}
+    
+    function optQuery(){
+        loadGrid("channelList", addNoCache("${ctx}/channel/page"), getWhere());
+		reFreshTree("channelTree");
+    }
+  //单击节点
+	function nodeClick(id) {
+	    $("#channelid").val(id);
+        loadGrid("channelList", addNoCache("${ctx}/channel/page"), getWhere());
+	}
+	function optAdd() {
+		$.dialog("${ctx}/channel/toAdd?pId=" + $("#channelid").val(), "新增栏目", "800","500");
+	}
+	function optUpdate() {
+		if (checkedCount('ids') != 1) {
+			$.msg("请选择一项");
+			return;
+		}
+		$.dialog(addNoCache("${ctx}/channel/toEdit?" + getWhereStr()), "编辑栏目","800", "550");
+	}
+	function optDel() {
+    	if(checkedCount('ids')<=0) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.confirm("确认删除吗?",function(){
+            $.remove("${ctx}/channel/remove", optQuery);
+        });
+    }
+</script>

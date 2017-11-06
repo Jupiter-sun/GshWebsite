@@ -1,0 +1,19 @@
+</div>
+</div>
+</div>
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var breadcrumbHtml = '';
+    <#if _submenuid_?? && _submenuid_!="home">
+    <#if _menuid_??>
+    breadcrumbHtml+='<li>'+$("#span_${_menuid_}").text()+'</li>';
+    </#if>
+    breadcrumbHtml+='<li class="active">'+$("#span_${_submenuid_}").text()+'</li>';
+    </#if>
+    $("#breadcrumbItem").html(breadcrumbHtml);
+</script>

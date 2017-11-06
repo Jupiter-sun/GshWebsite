@@ -1,0 +1,144 @@
+#browser_ie{height:100px;}
+#browser_ie .browser_list {
+    position: relative; float: left
+}
+#browser_ie .browser_list img {
+    width: 40px; height: 40px
+}
+#browser_ie .browser_list span {
+    text-align: center; width: 80px; display: inline-block
+}
+#browser_ie img{
+    border:0;
+}
+.am-table-bordered{
+}
+.am-table {
+    width: 100%;
+    /*font-size: 1.4rem;*/
+    table-layout: fixed;
+}
+.am-table > thead > tr > th,
+.am-table > tbody > tr > th,
+.am-table > tfoot > tr > th,
+.am-table > thead > tr > td,
+.am-table > tbody > tr > td,
+.am-table > tfoot > tr > td {
+    padding: 0.7rem;
+    line-height: 1.6;
+    vertical-align: top;
+    border-bottom-width: 1px;
+}
+.am-table .td{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;
+}
+
+.tab-condition-hide{
+    display: none;
+}
+
+.am-table > thead > tr > th,.am-table > tbody > tr > td{
+    border-right: 1px solid #dddddd;
+    border-top:1px solid #dddddd;
+    border-bottom:1px solid #dddddd;
+}
+.am-table > thead > tr > th:last-child,.am-table > tbody > tr > td:last-child{
+    border-right: none;
+    border-top:1px solid #dddddd;
+    border-bottom:1px solid #dddddd;
+}
+
+.text-red{
+    color: #f00;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Consolas";
+}
+.pagination input{
+    font-size: inherit;
+    width: 24px;
+    height: 20px;
+    line-height: 16px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    text-align: center;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+.pagination select{
+    display: inline-block;
+    height: 24px;
+    width: 50px;
+    margin: 0;
+    padding: 1px;
+    line-height: normal;
+}
+
+.pagination .separator {height: 18px; border-left: 1px solid #ddd ; border-right: 1px solid #ddd ; margin: 1px 4px;width:2px;
+    float: none;padding:0;}
+.pagination > li > a {
+    display: inline-block;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 22px;
+    text-align: center;
+    position: static;
+    float: none;
+    margin: 0 2px !important;
+    color: #808080;
+    border: 1px solid #CCC;
+    background-color: #FFF;
+    border-radius: 100% !important;
+}
+.pagination > li.disabled > a,.pagination > li.disabled > a:hover{
+    background-color: #F7F7F7;
+    color:#B0B0B0;
+}
+.input-icon{padding:0;}
+.input-icon input[type='text']{width:100%}
+.message-item {
+    border: none;
+    border-bottom-width: 0;
+    padding: 4px;
+    line-height: 18px;
+    position: relative;
+    background-color: #FFF;
+}
+.message-item .col1 {
+    margin: 0 6px 0 4px;
+    vertical-align: middle;
+    color: #467287;
+    display: inline-block;
+    width: 25%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.message-item .col2 {
+    margin: 0 6px 0 4px;
+    vertical-align: middle;
+    color: #467287;
+    display: inline-block;
+    width: 40%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.message-item .col3 {
+    margin: 0 6px 0 4px;
+    vertical-align: middle;
+    color: #467287;
+    display: inline-block;
+    width: 25%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.message-item .col4 {
+    margin: 0 6px 0 4px;
+    vertical-align: middle;
+    color: #467287;
+    display: inline-block;
+    width: 5%;
+    overflow: hidden;
+    white-space: nowrap;
+}

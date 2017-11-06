@@ -1,0 +1,11 @@
+<#include "/common/student_top.html"/>
+<#if msg??>
+    <h4 class="header blue bolder smaller">系统提示</h4>
+    <div class="alert alert-warning green smaller lighter">${msg.errmsg!}</div>
+</#if>
+
+<script>
+    function toback() {
+    }
+</script>
+<#include "/common/student_bottom.html"/>

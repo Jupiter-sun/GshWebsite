@@ -1,0 +1,49 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <form id="dForm" method="post" action="${ctx}/user/batchGrant" class="form-horizontal" role="form">
+                <input type="hidden" name="ids" value="${userIds}"/>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <select multiple="multiple" size="10" name="roleid" id="roleList">
+                            <#list roles! as role>
+                                <option value="${role.id}">${role.name}</option>
+                            </#list>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="footer" style="padding-top:10px;">
+    <div class="footer-inner">
+        <div class="footer-content" id="page-footer">
+            <button class="btn btn-info" onclick="save()" >
+                <i class="ace-icon fa fa-check bigger-110"></i>
+                保存
+            </button>
+            <button class="btn" onclick="$.close();" >
+                <i class="ace-icon fa fa-close bigger-110"></i>
+                关闭
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${ctx}/static/ace/assets/js/jquery.bootstrap-duallistbox.js"></script>
+<script type="text/javascript">
+    var dualObj = $('select[name="roleid"]').bootstrapDualListbox({
+        nonSelectedListLabel: '未分配角色',
+        selectedListLabel: '已分配角色',
+        showFilterInputs:false
+    });
+    var dualContainer = dualObj.bootstrapDualListbox('getContainer');
+    dualContainer.find('.info-container').css("display","none");
+    function save(){
+        $('#dForm').submit();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<@p.table value=page id="roleuser" url="/role/getPagerByRole";item,i,has_next>
+	<@p.column_checkbox name="ids" value="${item.id!}" width="40" val=""/><#t/>
+	<@p.column title="用户名">${item.username!}</@p.column><#t/>
+	<@p.column title="姓名">${item.truename!}</@p.column><#t/>
+	<@p.column title="部门"><#if item.dept??>${item.dept.name!}</#if></@p.column><#t/>
+	<@p.column title="用户类型"><#if item.type?? && (item.type=='2')>教工<#elseif item.type?? && (item.type=='4')>学生<#else>其他</#if></@p.column><#t/>
+	<@p.column title="状态"><#if item.status?? && (item.status=='1')>正常<#elseif item.status?? && (item.status=='0')>禁用<#else>其他</#if></@p.column><#t/>
+</@p.table>

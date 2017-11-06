@@ -1,0 +1,50 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" method="post" action="${ctx}/role/add" class="form-horizontal" role="form">
+                        <input type="hidden" name="type" value="0"/>
+                        <div class="form-group">
+                            <label class="width-25 no-padding-right text-right" for="name"> <span class="text-red">*</span>角色名：</label>
+                            <input type="text" name="name" value="" id="name" class="width-60 required" placeholder="输入角色名"/>
+                        </div>
+                        <div class="form-group" id="roleScope">
+                            <label class="width-25 no-padding-right text-right" for="scope"> <span class="text-red">*</span>管理范围： </label>
+                            <@p.select id="scope" name="scope" class="width-60" items="xx#管理员|student#部门" placeholder="请选择管理范围"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="width-25 no-padding-right text-right" for="isStdInfo"> 是否可维护基本信息：</label>
+                            <@p.radio name="isStdInfo" items="1#是|0#否" value="0"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer" style="padding-top:10px;">
+    <div class="footer-inner">
+        <div class="footer-content" id="page-footer">
+            <button class="btn btn-info" onclick="save()" >
+                <i class="ace-icon fa fa-check bigger-110"></i>
+                保存
+            </button>
+            <button class="btn" onclick="$.close();" >
+                <i class="ace-icon fa fa-close bigger-110"></i>
+                关闭
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    function save(){
+        if($("#dForm").valid()){
+            $('#dForm').submit();
+        }
+    }
+</script>
+</body>
+</html>

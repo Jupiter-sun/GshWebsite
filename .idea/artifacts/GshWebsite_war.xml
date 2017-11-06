@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="GshWebsite:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="GshWebsite.war">
+      <element id="artifact" artifact-name="GshWebsite:war exploded" />
+    </root>
+  </artifact>
+</component>

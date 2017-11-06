@@ -1,0 +1,116 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" method="post" action="${ctx}/dept/dept/add" class="form-horizontal" role="form">
+                    	<input type="hidden" name="pId" value="${pId!}" id="pId"/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="name"> <span class="text-red">*</span>单位代码： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="code" value="" id="code" class="col-xs-10 col-sm-10 required" placeholder="单位代码"/>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right" for="name"> <span class="text-red">*</span>单位名称： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="name" value="" id="name" class="col-xs-10 col-sm-10 required" placeholder="输入单位名称（至少2个字）"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="name"> 排序号： </label>
+                            <div class="col-sm-4">
+                                <input type="number" name="orderNumber" value="" id="orderNumber" class="col-xs-10 col-sm-10" placeholder="输入部门排序"/>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right" for="name"> 是否使用： </label>
+                            <div class="col-sm-4">
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="status" type="radio" class="ace" checked="checked" value="1"/>
+                                        <span class="lbl"> 是 </span>
+                                    </label>
+                                </div>
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="status" type="radio" class="ace"  value="0" />
+                                        <span class="lbl"> 否 </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: none;">
+                        	<label class="col-sm-2 control-label no-padding-right" for="name"> 是否教学单位： </label>
+                            <div class="col-sm-4">
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="isJxdw" type="radio" class="ace" checked="checked" value="1"/>
+                                        <span class="lbl"> 是 </span>
+                                    </label>
+                                </div>
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="isJxdw" type="radio" class="ace"  value="0" />
+                                        <span class="lbl"> 否 </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right" for="name"> 单位类型： </label>
+                            <div class="col-sm-4">
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="type" type="radio" class="ace" value="xy"/>
+                                        <span class="lbl"> 学院 </span>
+                                    </label>
+                                </div>
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="type" type="radio" class="ace" checked="checked" value="" />
+                                        <span class="lbl"> 行政 </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label no-padding-right" for="name"> 联系人： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="lxr" value="" id="lxr" class="col-xs-10 col-sm-10" placeholder="输入联系人"/>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right" for="name"> 邮箱： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="email" value="" id="email" class="col-xs-10 col-sm-10" placeholder="输入邮箱"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="name"> 上级部门： </label>
+                            <div class="col-sm-4">
+                                <@p.common type="dept" id="fatheid" hiddenId="fatherId" hiddenName="father.id"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer" style="padding-top:10px;">
+	<div class="footer-inner">
+		<div class="footer-content" id="page-footer">
+			<button class="btn btn-info" onclick="save()" >
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				保存
+			</button>
+			<button class="btn" onclick="$.close();" >
+				<i class="ace-icon fa fa-close bigger-110"></i>
+				关闭
+			</button>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    function save(){
+        if($("#dForm").valid()){
+            $('#dForm').submit();
+        }
+    }
+</script>
+</body>
+</html>

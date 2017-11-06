@@ -1,0 +1,90 @@
+<#include "/common/top.html"/>
+<div class="row page-header">
+    <div class="col-xs-4">
+        <span>学院：<@p.xy id="xy" hiddenId="xyId" hiddenName="xy.id" multiple="true" zy="zy" zyId="zyId" /></span>
+    </div>
+    <div class="col-xs-4">
+        <span>专业：<@p.zy id="zy" hiddenId="zyId" xyId="xyId"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>班级：<@p.bj id="bj" hiddenId="bjId" zyId="zyId" xyId="xyId"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>部门：<@p.common type="dept" id="glbm"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>性别：<@p.common type="code" id="xb" parentId="20001" hiddenId="xbId" multiple="true" self="true"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>角色：<@p.common type="role" id="role" hiddenId="roleId"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>年级：<@p.nj id="nj"/></span>
+    </div>
+
+    <div class="col-xs-4">
+        <span>年级：<@p.demo id="demo"/></span>
+    </div>
+
+    <div class="col-xs-4">
+        <span>民族：<@p.common type="code" id="mz" parentId="20002"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>政治面貌：<@p.common type="code" id="zzmm" parentId="20011"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>婚姻状况：<@p.common type="code" id="hyzk" parentId="20003"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>流程：<@p.common type="process" id="precess"/></span>
+    </div>
+    <div class="col-xs-4">
+        <span>类型：<@p.selectCode id="xb1" parentId="10001"/></span>
+    </div>
+
+    <div class="col-xs-4">
+        <span>省市县：<@p.area id="area"/></span>
+    </div>
+    <a href="#" onclick="javascript:optview()"> 导入execl表</a>
+
+    <div> <button value="解析execl" onclick="javascript:optAdd()" name="btn" id="btn"></button></div>
+    <form id="dForm" name="frm" action="${ctx}/demo/read" method="post">
+
+    </form>
+</div>
+<#include "/common/bottom.html"/>
+<script type="text/javascript">
+    function optview() {
+        window.open("${ctx}/demo/demo");
+        //$.dialog("${ctx}/demo/demo","haha","800px","600px");
+    }
+    function optAdd() {
+        $('#dForm').submit();
+    }
+
+    /*$(document).ready(function () {
+        $("#btn").click(function () {
+            $.ajax({
+                url: addNoCache("${ctx}/demo/add"),
+                type: "post",
+                datatype: "json",
+                data: {'param': f},
+                success: function (data) {
+                    var obj = eval("(" + data + ")");
+                    if (f.success) {
+                        mini.unmask();
+                        alert(obj.message);
+                        location.reload();
+                    } else {
+                        mini.unmask();
+                        alert(obj.message);
+                    }
+                }
+            })
+        })
+
+
+    });*/
+
+</script>
+

@@ -1,0 +1,103 @@
+<#include "/common/subhead.html"/>
+<script type="text/javascript">
+	window.UEDITOR_HOME_URL = "${ctx}/static/ueditor/";//编辑器项目路径
+</script>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" method="post" action="${ctx}/content/add" class="form-horizontal" role="form" enctype="multipart/form-data">
+						<div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right"> 栏目名称：</label>
+                            <div class="col-sm-4">
+                                <input type="text"  name="name"  placeholder="输入栏目名称" readonly  value="${channel.name!}"/>
+                                <input type="hidden" name="channel.id" value="${channel.id!}"/>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right"> 固顶级别： </label>
+                            <div class="col-sm-4">
+                                <input type="text" id="topLevel" name="topLevel"  placeholder="输入固顶级别" value=""/>
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">是否推荐： </label>
+                            <div class="col-sm-4">
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="isRecommend" type="radio" class="ace" value="1"/>
+                                        <span class="lbl"> 是</span>
+                                    </label>
+                                </div>
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="isRecommend" type="radio" class="ace" checked="checked" value="0" />
+                                        <span class="lbl"> 否</span>
+                                    </label>
+                                </div>
+                            </div>
+                           <!--  <label class="col-sm-2 control-label no-padding-right">是否加粗 </label>
+                            <div class="col-sm-4">
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="isBold" type="radio" class="ace" value="1"/>
+                                        <span class="lbl"> 是</span>
+                                    </label>
+                                </div>
+                                <div class="radio inline">
+                                    <label>
+                                        <input name="isBold" type="radio" class="ace" checked="checked" value="0" />
+                                        <span class="lbl"> 否</span>
+                                    </label>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-sm-2 control-label no-padding-right" ><span class="text-red">*</span>标题： </label>
+                            <div class="col-sm-10">
+                                <input type="text" id="title" name="title" required placeholder="输入标题,不超过75字符" maxlength="75" value="" class="col-xs-10 col-sm-10 required"/>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-sm-2 control-label no-padding-right"><span class="text-red">*</span>描述： </label>
+                            <div class="col-sm-10">
+                               <input type="text" id="description" name="description" maxlength="150" placeholder="输入描述,不超过150字" value="" class="col-xs-10 col-sm-10 required"/>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" >内容： </label>
+                            <div class="col-sm-8">
+                                <textarea name="txt" id="editor" class="required"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer" style="padding-top:10px;">
+    <div class="footer-inner">
+        <div class="footer-content" id="page-footer">
+            <button class="btn btn-info" onclick="save()" >
+                <i class="ace-icon fa fa-check bigger-110"></i>
+                保存
+            </button>
+            <button class="btn" onclick="$.close();" >
+                <i class="ace-icon fa fa-close bigger-110"></i>
+                关闭
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+var ue = UE.getEditor('editor', {	wordCount:false, elementPathEnabled:false,	initialFrameHeight:360});
+
+function save(){
+    if($("#dForm").valid()){
+        $('#dForm').submit();
+    }
+}
+</script>
+</body>
+</html>

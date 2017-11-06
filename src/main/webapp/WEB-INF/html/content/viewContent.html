@@ -1,0 +1,27 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" method="post" action="${ctx}/content/add" class="form-horizontal" role="form" enctype="multipart/form-data">
+						
+						
+                        <div class="form-group" >
+                            <label class="col-sm-12 control-label" style="text-align: center;">${content.title!} </label>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-sm-12 control-label" style="text-align: center;">发布时间：<#if content.releaseDate??>${content.releaseDate?string("yyyy-MM-dd")}</#if>&nbsp;&nbsp;&nbsp;&nbsp;发布作者：${content.author!} </label>
+                        </div>
+                        <div class="hr hr-16 hr-dotted"></div>
+                         <div class="form-group">
+                            <div class="col-sm-12" style="margin-top: 8px">
+                                  ${content.txt!}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

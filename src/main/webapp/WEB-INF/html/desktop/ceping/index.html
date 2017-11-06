@@ -1,0 +1,31 @@
+<#include "/common/student_top.html"/>
+<h4 class="header blue bolder smaller">综合测评</h4>
+<div class="profile-users clearfix">
+    <#if cepingStudents?? && (cepingStudents?size>0)>
+    <#list cepingStudents as stu>
+        <div class="itemdiv memberdiv">
+            <div class="inline pos-rel">
+                <div class="user">
+                    <a href="javascript:void(0)" onclick="toApply('${stu.cepingClass.year.id}')">
+                        <img src="${ctx}/static/images/yellow.png">
+                    </a>
+                </div>
+
+                <div class="body">
+                    <div class="name">
+                        <a href="javascript:void(0)" onclick="toApply('${stu.cepingClass.year.id}')">
+                            ${stu.cepingClass.year.xn}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </#list>
+    </#if>
+</div>
+<script type="text/javascript">
+    function toApply(id) {
+        window.location.href = addNoCache("${ctx}/cepingApply/main?id="+id);
+    }
+</script>
+<#include "/common/student_bottom.html"/>

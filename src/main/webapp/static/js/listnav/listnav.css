@@ -1,0 +1,8 @@
+.listNav,.ln-letters{overflow:hidden;margin-bottom:5px;text-align:center;}
+.listNavHide{display:none;}
+.listNavShow{display:list-item;}
+.letterCountShow{display:none;}
+.ln-letters a{float:left;display:block;padding:2px 7px;border:none;border-bottom:2px solid #6fb3e0;color:#6fb3e0;text-decoration:none;font-size:.9em;}
+.ln-letters .ln-selected,.ln-letters a:hover{background-color:#6fb3e0;color:#fff}
+.ln-letters .ln-disabled{color:#ccc;}
+.ln-letter-count{position:absolute;top:0;left:0;width:20px;color:#369;text-align:center;font-size:.8em;line-height:1.35;}

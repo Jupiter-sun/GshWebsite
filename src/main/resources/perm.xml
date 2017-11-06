@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<perms>
+
+
+	<group name="信息推送" value="1" img="iconfont icon-xitongshezhi">
+		<perm name="模块管理" value="system:manage"/>
+	</group>
+
+	<group name="系统设置" value="1" img="iconfont icon-xitongshezhi">
+		<perm name="系统设置" value="system:manage"/>
+		<!--<perm name="演示" value="demo:manage"/>-->
+	</group>
+
+</perms>

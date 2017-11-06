@@ -1,0 +1,7 @@
+<@p.table id="roleList" value=page url="/role/page";item,i,has_next>
+<@p.column_checkbox name="ids" value="${item.id!}" width="10" val=""/><#t/>
+<@p.column title="角色名">${item.name!}</@p.column><#t/>
+<@p.column title="角色管理范围"><#if item.scope?? && (item.scope=='sys')>系统角色<#elseif item.scope?? && (item.scope=='xx')>管理员<#elseif item.scope?? && (item.scope=='dept')>院系管理员<#elseif item.scope?? && (item.scope=='class')>班级管理员<#elseif item.scope?? && (item.scope=='student')>部门</#if></@p.column><#t/>
+<@p.column title="是否系统定制"><#if item.code??&&(item.code?index_of("SYS")==0)>是<#else>否</#if></@p.column><#t/>
+<@p.column title="是否可维护基本信息"><#if item.isStdInfo??&&item.isStdInfo=="1">是<#else>否</#if></@p.column><#t/>
+</@p.table>

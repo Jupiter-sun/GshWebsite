@@ -1,0 +1,122 @@
+<#include "/common/student_top.html"/>
+<h4 class="header blue bolder smaller">综合测评 - 班级互评</h4>
+<div class="alert alert-warning green smaller lighter">当前测评学年：${cepingYear.xn!}</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="widget-box">
+			<div class="widget-header widget-header-flat">
+				<h4 class="widget-title lighter">
+					评测项目
+				</h4>
+				<div class="widget-toolbar">
+					<a href="#" data-action="collapse">
+						<i class="ace-icon fa fa-chevron-up"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body" style="display: block;">
+				<div class="widget-main no-padding">
+					<table class="table table-striped table-bordered table-hover no-margin-bottom">
+						<thead>
+						<tr>
+							<th colspan="2">测评指标</th>
+							<th>评分内容</th>
+							<th>分项满分</th>
+						</tr>
+						</thead>
+						<tbody>
+						<#list itemList as item>
+							<tr>
+								<td class="align-center" width="6%">${item.code!}</td>
+								<td class="align-center" width="15%">${item.name!}</td>
+								<td class="align-center" width="50%">${item.description!}</td>
+								<td class="align-center" width="9%"><#if item.minval??&&item.minval??&&item.minval==item.maxval>${item.minval!}<#else> ${item.minval!}-${item.maxval!}</#if></td>
+							</tr>
+						</#list>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="widget-box">
+			<div id="hpHead" class="widget-header widget-header-flat">
+				<h4 class="widget-title lighter">
+					班级互评
+				</h4>
+			</div>
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<form id="dForm" method="post" action="${ctx}/cepingApply/saveHp">
+					<input name="yearId" id="yearId" value="${cepingYear.id!}" type="hidden">
+					<input name="quotaId" id="quotaId" value="${quotaId!}" type="hidden">
+					<table class="table table-striped table-bordered table-hover no-margin-bottom">
+						<thead>
+						<tr>
+							<th>姓名</th>
+							<#list itemList as item>
+								<th>${item.code!}</th>
+							</#list>
+						</tr>
+						</thead>
+						<tbody>
+						<#list scores as score>
+							<tr>
+								<td class="align-center">${score.xm!}<br>${score.xh}
+									<input name="xh_${score_index}" value="${score.xh}" type="hidden">
+								</td>
+								<#list itemList as item>
+									<td class="align-center">
+										<input id="score_${score_index}_${item.id}" name="score_${score_index}_${item.id}" type="text" class="required number" range="<#if item.minval??&&item.minval??&&item.minval==item.maxval>0,${item.minval!}<#else>${item.minval!},${item.maxval!}</#if>"
+											   style="width:50px;" value="<#if score[item.code?lower_case]??>${score[item.code?lower_case]!}<#else>${item.maxval!}</#if>">
+									</td>
+								</#list>
+							</tr>
+						</#list>
+						</tbody>
+					</table>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix form-actions">
+			<div style="text-align: center;">
+				<button id="submitBtn" class="btn btn-info" type="button" onclick="save()" disabled>
+					<i class="ace-icon fa fa-check bigger-110"></i> 保存
+				</button>
+				&nbsp; &nbsp; &nbsp;
+				<button class="btn" type="button" onclick="back()">
+					<i class="ace-icon fa fa-arrow-left bigger-110"></i>返回
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<#include "/common/student_bottom.html"/>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		<#if msg??&&msg.errmsg??>
+		$.msg("${msg.errmsg}");
+		</#if>
+		$("input[name^='score_']").change(function(){
+			$("#submitBtn").attr("disabled", false);
+		});
+	});
+
+	function save(){
+		if($("#dForm").valid()){
+			$.loading("正在提交中...");
+			$('#dForm').submit();
+		}
+	}
+	function back(){
+		window.location.href = "${ctx}/cepingApply/main?id=${cepingYear.id!}";
+	}
+</script>

@@ -1,0 +1,230 @@
+<#include "/common/student_top.html"/>
+<h4 class="header blue bolder smaller">综合测评</h4>
+<div class="alert alert-warning green smaller lighter">当前测评学年：${cepingYear.xn!}</div>
+<div class="profile-users clearfix">
+    <div class="pull-right inline">
+        <button class="btn btn-info" type="button" onclick="downLoad()" >
+        <i class="ace-icon fa fa-download bigger-110"></i>
+        下载表格
+    </button>
+    </div>
+    <form id="dForm" method="post" action="${ctx}/cepingApply/stdApply" class="form-horizontal" role="form">
+        <input type="hidden" name="applyId" value="<#if cepingApply??>${cepingApply.id!}</#if>">
+        <input type="hidden" name="yearId" value="${cepingYear.id!}"/>
+        <input type="hidden" name="quotaId" value="${quotaId!}"/>
+    <#if quotaResults?? && (quotaResults?size>0)>
+        <#assign index=0/>
+    <div class="tabbable" id="tabs">
+        <ul class="nav nav-tabs width-60">
+            <#list quotaResults as quota>
+                <li <#if quotaId?? && quotaId==quota.id>class="active"</#if>>
+                    <a data-toggle="tab" href="#tab${quota_index}">
+                        ${quota.code}: ${quota.name!}
+                    </a>
+                </li>
+            </#list>
+        </ul>
+        <div class="tab-content">
+            <#list quotaResults as quota>
+                <div id="tab${quota_index}" class="tab-pane fade <#if quotaId?? && quotaId==quota.id>in active</#if>">
+                    <#list quota.items?keys as key>
+                        <#if key=="ceping_type_1">
+                            <table class="table table-striped table-bordered table-hover no-margin-bottom">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">测评指标</th>
+                                    <th>评分内容</th>
+                                    <th>分项满分</th>
+                                    <th>自评分</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <#list quota.items[key] as item>
+                                    <tr>
+                                        <td class="align-center" width="6%">${item.code!}</td>
+                                        <td class="align-center" width="15%">${item.name!}</td>
+                                        <td class="align-center" width="50%">${item.description!}</td>
+                                        <td class="align-center" width="9%"><#if item.minval??&&item.minval??&&item.minval==item.maxval>${item.minval!}<#else> ${item.minval!}-${item.maxval!}</#if></td>
+                                        <td class="align-center" width="20%"><input id="scorea_${quota.id}_${item_index}" name="scorea_${quota.id}_${item_index}" type="text" class="required number" range="<#if item.minval??&&item.minval??&&item.minval==item.maxval>0,${item.minval!}<#else>${item.minval!},${item.maxval!}</#if>" style="width:100px;text-align:center;" value="${item.score!}"/></td>
+                                        <input type="hidden" name="itema_${quota.id}_${item_index}" value="${item.id!}"/>
+                                        <input type="hidden" name="resulta_${quota.id}_${item_index}" value="${item.resultId!}"/>
+                                    </tr>
+                                </#list>
+                                </tbody>
+                            </table>
+                            <#elseif key=="ceping_type_2">
+                                <table class="table table-striped table-bordered table-hover no-margin-bottom">
+                                    <#list quota.items[key] as item>
+                                        <input type="hidden" name="itemb_${quota.id}_${item_index}" value="${item.id!}"/>
+                                        <input type="hidden" name="resultb_${quota.id}_${item_index}" value="${item.resultId!}"/>
+                                        <tr>
+                                            <th colspan="4" class="align-left">${item.code!}：${item.name!}</th>
+                                        </tr>
+                                        <#if item.scores?? && (item.scores?size>0)>
+                                            <tr>
+                                                <th>课程名称</th>
+                                                <th>课程类别</th>
+                                                <th>学分</th>
+                                                <th>成绩</th>
+                                            </tr>
+                                            <#list item.scores as course>
+                                                <tr>
+                                                    <td class="align-center" width="40%">${course.kcmc!}</td>
+                                                    <td class="align-center" width="20%">${course.ksxz!}</td>
+                                                    <td class="align-center" width="20%">${course.xf!}</td>
+                                                    <td class="align-center" width="20%">${course.kccj!}</td>
+                                                </tr>
+                                            </#list>
+                                        </#if>
+                                    </#list>
+                                </table>
+                                <#elseif key=="ceping_type_3">
+
+                                    <#list quota.items[key] as item>
+                                        <div class="widget-box">
+                                            <div class="widget-header widget-header-flat widget-header-small">
+                                                <h5 class="widget-title">
+                                                    ${item.code!}：${item.name!}
+                                                </h5>
+                                                <div class="widget-toolbar no-border">
+                                                    <a href="javascript:void(0)" onclick="openGrade('${quota.id}','${item.id!}','${item.name!}')" style="font-size:12px;">添加</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="openBz('${quota.id}','${item.id!}','${item.name!}')" style="font-size:12px;">查看评分标准</a>
+                                                    <input type="hidden" id="itemname_${item.id}" value="${item.name!}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="widget-body">
+                                                <#if item.details?? && (item.details?size>0)>
+                                                    <div id="widget_${item.id!}" class="widget-main">
+                                                        <div class="message-list-container">
+                                                            <div id="list-${item.id!}" class="message-list">
+                                                                <#list item.details as detail>
+                                                                    <#assign index=index+1/>
+                                                                    <div class="message-item">
+                                                                        <span class="col1">
+                                                                            <input type="text" id="namec_${quota.id}_${index}" name="namec_${quota.id}_${index}" value="${detail.name!}" class="width-95 required" placeholder="请输入名称"/>
+                                                                        </span>
+                                                                        <span class="col2">
+                                                                            <span class="input-icon input-icon-right width-80">
+                                                                                <input type="text" id="fullname_${quota.id}_${index}" name="fullname_${quota.id}_${index}" placeholder="请选择级别" value="${detail.fullname}" onclick="openGrade('${quota.id}_${index}','${item.id}','${item.name!}')"/>
+                                                                                <i style="cursor:pointer;" class="ace-icon fa fa-search blue" onclick="openGrade('${quota.id}_${index}','${item.id}','${item.name!}')"></i>
+                                                                            </span>
+                                                                            <span>
+                                                                                <input type="text" id="scorec_${quota.id}_${index}" name="scorec_${quota.id}_${index}" style="width:60px;" value="${detail.score!}"/></span>
+                                                                                    <input type="hidden" id="itemc_${quota.id}_${index}" name="itemc_${quota.id}_${index}" value="${item.id!}"/>
+                                                                                    <input type="hidden" id="gradec_${quota.id}_${index}" name="gradec_${quota.id}_${index}" value="${detail.grade_id}"/>
+                                                                                    <input type="hidden" name="resultc_${quota.id}_${index}" value="${detail.id!}"/>
+                                                                        </span>
+                                                                        <span class="col3">
+                                                                            <input type="text" name="remarkc_${quota.id}_${index}" value="${detail.remark!}" class="width-95" placeholder="请输入备注"/>
+                                                                        </span>
+                                                                        <span class="col4">
+                                                                            <a href="javascript:void(0)" onclick="removeItemc('${detail.id}');$(this).parents('.message-item').remove();">
+                                                                                <i class="ace-icon fa fa-trash bigger-150"></i>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </#list>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <#else>
+                                                        <div id="widget_${item.id!}" class="widget-main" style="display: none;">
+                                                            <div class="message-list-container">
+                                                                <div id="list-${item.id!}" class="message-list">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </#if>
+                                            </div>
+                                        </div>
+
+                                    </#list>
+                        </#if>
+                    </#list>
+                </div>
+            </#list>
+        </div>
+
+        <div class="row align-center" style="margin-top:20px;">
+            <button class="btn btn-info" type="button" onclick="save()" >
+                <i class="ace-icon fa fa-check bigger-110"></i>
+                保存
+            </button>
+            <button class="btn" type="button" onclick="back()" >
+                <i class="ace-icon fa fa-arrow-left bigger-110"></i>
+                返回
+            </button>
+        </div>
+    </div>
+    </#if>
+    </form>
+</div>
+<#include "/common/student_bottom.html"/>
+<script type="text/javascript">
+    $(document).ready(function(){
+//        $("#tabs").tabs();
+        <#if msg??&&msg.errmsg??>
+        $.msg("${msg.errmsg}");
+		</#if>
+    });
+    function save(){
+        if($("#dForm").valid()){
+            $.loading("正在提交中...");
+            $('#dForm').submit();
+        }
+    }
+    function back() {
+        window.location.href = "${ctx}/cepingApply/main?id=${cepingYear.id}";
+    }
+    var index = "${index}";
+    function addItemc(quotaId, itemId, gradeId, score, fullname){
+        if(quotaId.indexOf("_")<0){
+            index++;
+            var itemname = $("#itemname_"+itemId).val();
+            var html = "<div class='message-item'><span class='col1'>";
+            html += "<input type='text' class='width-95 required' id='namec_"+quotaId+"_"+index+"' name='namec_"+quotaId+"_"+index+"' placeholder='请输入名称'/>";
+            html += "</span><span class='col2'>";
+            html += "<span class='input-icon input-icon-right width-80'>";
+            html += "<input type='text' id='fullname_"+quotaId+"_"+index+"' name='fullname_"+quotaId+"_"+index+"' placeholder='请选择级别' value='"+fullname+"' onclick='openGrade(\""+quotaId+"_"+index+"\",\""+itemId+"\", \""+itemname+"\")'/>";
+            html += "<i style='cursor:pointer;' class='ace-icon fa fa-search blue' onclick='openGrade(\""+quotaId+"_"+index+"\",\""+itemId+"\", \""+itemname+"\")'></i>";
+            html += "</span><span>";
+            html += "<input type='text' id='scorec_"+quotaId+"_"+index+"' name='scorec_"+quotaId+"_"+index+"' value='"+score+"' style='width:60px;'/>";
+            html += "<input type='hidden' id='itemc_"+quotaId+"_"+index+"' name='itemc_"+quotaId+"_"+index+"' value='"+itemId+"'/>";
+            html += "<input type='hidden' id='gradec_"+quotaId+"_"+index+"' name='gradec_"+quotaId+"_"+index+"' value='"+gradeId+"'/>";
+            html += "</span></span><span class='col3'>";
+            html += "<input type='text' name='remarkc_"+quotaId+"_"+index+"' class='width-95' placeholder='请输入备注'/>";
+            html += "</span><span class='col4'>";
+            html += "<a href='javascript:void(0)' onclick='$(this).parents(\".message-item\").remove();'><i class='ace-icon fa fa-trash bigger-150'></i></a>";
+            html += "</span></div>";
+            $("#list-"+itemId).append(html);
+            if($("#widget_"+itemId).is(":hidden")){
+                $("#widget_"+itemId).show();
+            }
+        }
+        else{
+            $("#fullname_"+quotaId).val(fullname);
+            $("#scorec_"+quotaId).val(score);
+            $("#gradec_"+quotaId).val(gradeId);
+        }
+    }
+    function openGrade(quotaId, itemId, itemValue){
+        var gradeId = "";
+        if($("#gradec_"+quotaId).length>0){
+            gradeId=$("#gradec_"+quotaId).val();
+        }
+        $.dialog("${ctx}/select/cepingGrade?quotaId="+quotaId+"&itemId="+itemId+"&gradeId="+gradeId,itemValue,"700","400");
+    }
+    function downLoad(){
+        window.location.href = "${ctx}/cepingApply/download";
+    }
+    function openBz(quotaId, itemId, itemValue) {
+        $.dialog("${ctx}/select/cepingPfbz?itemId="+itemId+"&quotaId="+quotaId,itemValue,"800","500");
+    }
+
+    function removeItemc(id){
+        if(id!=null && id!=""){
+            $("#dForm").append("<input type='hidden' name='removeItemcId' value='"+id+"'/>");
+        }
+    }
+</script>

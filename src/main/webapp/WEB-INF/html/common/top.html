@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>${SYSTEM_NAME!}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <#include "/common/inc.html"/>
+    <#include "/common/inc_more.html"/>
+    <script type="text/javascript">
+        function logout(){
+            $.confirm("确认退出系统吗？",function(){
+                window.location.href = "${ctx}/logout";
+            });
+        }
+        function alertMsg(errcode,errmsg){
+            if(errcode!=null&&errcode=="0"){
+                $.msg(errmsg);
+            }
+            else{
+                $.msg(errmsg);
+            }
+        }
+        function todo(url, submenuid, menuid){
+            var formStr = "<form id='hiddenTargetForm' action='${ctx}"+url+"' method='post'>";
+            formStr += "<input type='hidden' name='_menuid_' value='"+menuid+"'/>";
+            formStr += "<input type='hidden' name='_submenuid_' value='"+submenuid+"'/>";
+            formStr += "</form>";
+            $("BODY").append(formStr);
+            $.loading();
+            $("#hiddenTargetForm").submit();
+        }
+        function changePassword(){
+            $.dialog("${ctx}/user/password","修改密码", "500","300");
+        }
+        function switchRole(roleid){
+            window.location.href = "${ctx}/switchRole?current_roleid="+roleid;
+        }
+        $(document).ready(function(){
+            <#if errmsg??>$.msg("${errmsg}");</#if>
+        });
+
+
+
+
+
+    </script>
+</head>
+<body class="no-skin">
+<#include "/common/header.html"/>
+<div class="main-container" id="main-container">
+    <#include "/common/menu.html"/>
+        <div class="main-content">
+        <div class="main-content-inner">
+            <#include "/common/breadcrumb.html"/>
+            <div class="page-content">

@@ -1,0 +1,64 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="dForm" method="post" action="${ctx}/dept/class/edit" class="form-horizontal" role="form">
+                        <input type="hidden" name="id" value="${class.id}"/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="bh"> 班号： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="bh" value="${class.bh!}" id="bh" class="col-xs-10 col-sm-10 required" placeholder="输入班号" readonly="readonly"/>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right" for="bjmc"> 班级名称： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="bjmc" value="${class.bjmc!}" id="bjmc" class="col-xs-10 col-sm-10 required" placeholder="输入班级名称（至少2个字）"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label no-padding-right" for="xy"> 学院： </label>
+                            <div class="col-sm-4">
+                            	<@p.xy id="xyId" hiddenId="xyid" hiddenName="xy.id" value="${class.xy?if_exists.name!}" hiddenValue="${class.xy?if_exists.id!}"/>
+                            </div>
+                            <label class="col-sm-2 control-label no-padding-right" for="nj"> 年级： </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="nj" value="${class.nj!}" id="nj" class="col-xs-10 col-sm-10" placeholder="选择年级"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label no-padding-right" for="xy"> 专业：</label>
+                            <div class="col-sm-4">
+                            	<@p.zy id="majorId" hiddenId="majorid" hiddenName="major.id" value="${class.major?if_exists.zy!}" hiddenValue="${class.major?if_exists.id!}" xyId="xyid"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer" style="padding-top:10px;">
+	<div class="footer-inner">
+		<div class="footer-content" id="page-footer">
+			<button class="btn btn-info" onclick="save()" >
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				保存
+			</button>
+			<button class="btn" onclick="$.close();" >
+				<i class="ace-icon fa fa-close bigger-110"></i>
+				关闭
+			</button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    function save(){
+        if($("#dForm").valid()){
+            $('#dForm').submit();
+        }
+    }
+</script>

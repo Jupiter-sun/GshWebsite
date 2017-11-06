@@ -1,0 +1,54 @@
+<#include "/common/subhead.html"/>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+        <div class="row page-header">
+            <h4>【${importDTO.showName!}】</h4>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h5>导入说明</h5>
+                <p>1、本系统支持xls,xlsx格式，请确保表格中的数据不含有空格等特殊符号，标准格式请参考【<a href="${ctx}/data_import/downloadTemplate?id=${importDTO.id}">导入模版</a>】<br>
+                    ${importDTO.remark!}
+                </p>
+                <hr/>
+                <h2>文件上传</h2>
+                <form name="f" id="f" action="${ctx}/data_import/upload" class="form-horizontal" method="post" enctype="multipart/form-data">
+                    <input name="id" type="hidden" value="${importDTO.id}">
+                    <div class="form-group">
+
+                        <div class="col-xs-6">
+                            <input type="file" name="file" id="file">
+                        </div>
+                        <div><button class="btn btn-info" onclick="optUpload()" type="button"><i class="fa fa-upload bigger-80"></i>&nbsp;导入</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#file').ace_file_input({
+            no_file:'请选择要上传的文件 ...',
+            btn_choose:'选择文件',
+            btn_change:'更换文件',
+            droppable:false,
+            onchange:null
+        });
+    });
+
+    function optUpload(){
+        var filepath = $("input[name='file']").val();
+        var extStart = filepath.lastIndexOf(".");
+        var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+        if (ext == ".XLS" || ext == ".XLSX") {
+            $("#f").submit();
+        } else {
+            $.msg("只能上传excel文件，请重新选择文件");
+        }
+    }
+</script>

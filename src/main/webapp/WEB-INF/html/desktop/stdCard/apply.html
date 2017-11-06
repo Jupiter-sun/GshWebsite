@@ -1,0 +1,37 @@
+<#include "/common/student_top.html"/>
+<h4 class="header blue bolder smaller">常用服务</h4>
+<div class="profile-users clearfix">
+    <div>
+        <p>学生证补办须知</p>
+        <div class="col-sm-4">
+            <div>
+                <label>
+                    <input name="sfty" type="radio" onclick="check()" value="1"/>同意
+                    <input name="sfty" type="radio" onclick="check()" checked value="0"/>不同意
+                </label>
+            </div>
+            <div>
+                <button id="ty" disabled onclick="next()">下一步</button>
+                <button id="fh" onclick="preview() ">返回</button>
+            </div>
+        </div>
+    </div>
+</div>
+<#include "/common/student_bottom.html"/>
+<script type="text/javascript">
+    function next() {
+        window.location.href = addNoCache("${ctx}/CardApply/toEdit");
+    }
+    function check() {
+        var sfty = document.getElementsByName("sfty")[0];
+        if (sfty.checked) {
+            $("#ty").attr("disabled", false);
+        } else {
+            $("#ty").attr("disabled", true);
+        }
+
+    }
+    function preview() {
+        window.location.href = addNoCache("${ctx}/CardApply/stuCard");
+    }
+</script>

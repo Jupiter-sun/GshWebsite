@@ -1,0 +1,59 @@
+<#include "/common/top.html"/>
+<div class="row page-header">
+    <div class="col-xs-12">
+        <span class="block pull-right">
+            <button class="btn btn-info" onclick="optAdd()" ><i class="fa fa-plus bigger-80"></i>&nbsp;新增</button>
+            <button class="btn btn-info" onclick="optUpdate()" ><i class="fa fa-pencil bigger-80"></i>&nbsp;编辑</button>
+            <button class="btn btn-info" onclick="optGrantPerm()" ><i class="fa fa-asterisk bigger-80"></i>&nbsp;授权</button>
+            <button class="btn btn-info" onclick="optGrant()" ><i class="fa fa-asterisk bigger-80"></i>&nbsp;分配用户</button>
+            <@shiro.hasPermission name="system:remove"><button class="btn btn-info" onclick="optDel()" ><i class="fa fa-trash bigger-80"></i>&nbsp;删除</button></@shiro.hasPermission>
+        </span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div id="roleList"></div>
+    </div>
+</div>
+<#include "/common/bottom.html"/>
+<script type="text/javascript">
+    $(document).ready(function(){
+        optQuery();
+    });
+    function optQuery(){
+        loadGrid("roleList", addNoCache("${ctx}/role/page"), getWhere());
+    }
+    function optAdd(){
+        $.dialog("${ctx}/role/toAdd","新增","600","300");
+    }
+    function optUpdate(){
+        if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.dialog(addNoCache("${ctx}/role/toEdit?"+getWhereStr()),"编辑角色", "600", "300");
+    }
+    function optGrantPerm(){
+        if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.dialog(addNoCache("${ctx}/role/toGrantPerm?"+getWhereStr()),"分配资源","850","500");
+    }
+    function optGrant(){
+    	if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.dialog(addNoCache("${ctx}/role/toGrant?"+getWhereStr()),"分配用户","1100","600");
+    }
+    function optDel() {
+        if(checkedCount('ids')<=0) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.confirm("确认删除吗?",function(){
+            $.remove("${ctx}/role/remove", optQuery);
+        });
+    }
+</script>

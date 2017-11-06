@@ -1,0 +1,7 @@
+<@p.table id="itemList" value=page url="/code/kind/page";item,i,has_next>
+<@p.column_checkbox name="ids" value="${item.id!}" val=""/><#t/>
+<@p.column title="代码分类ID">${item.id!}</@p.column><#t/>
+<@p.column title="代码分类名称">${item.kindName!}</@p.column><#t/>
+<@p.column title="代码分组">${item.codeGroup!}</@p.column><#t/>
+<@p.column title="是否有效"><#if item.status! == '1'>有效<#else>无效</#if></@p.column><#t/>
+</@p.table>

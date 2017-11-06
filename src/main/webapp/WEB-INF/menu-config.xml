@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<menus>
+
+    <group id="tzgg" name="通知公告管理" perms="1" img="iconfont icon-tongzhigonggaoguanli">
+        <menu id="chanel" name="栏目管理" url="/channel/list" perms="notice:channel" img="fa fa-caret-right"/>
+        <menu id="content" name="信息管理" url="/content/list" perms="notice:content" img="fa fa-caret-right"/>
+    </group>
+
+    <group id="cms" name="模块管理" perms="1" img="iconfont icon-tongzhigonggaoguanli">
+        <menu id="dw1" name="新闻动态" url="/news/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="dw2" name="软件推荐" url="/product/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="dw2" name="解决方案" url="/idea/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="dw2" name="工程服务" url="/server/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="dw2" name="团队成员" url="/teams/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="dw2" name="客户评价" url="/evaluate/list" perms="system:manage" img="fa fa-caret-right"/>
+    </group>
+
+
+    <group id="system" name="系统管理" perms="1" img="iconfont icon-xitongguanli">
+        <!--<menu id="sysdemo" name="演示" url="/demo/index" perms="demo:manage" img="fa fa-caret-right"/>-->
+        <menu id="syslog" name="日志管理" url="/log/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="sysdept" name="部门管理" url="/dept/main" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="sysuser" name="用户管理" url="/user/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="sysrole" name="角色管理" url="/role/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="sysconfig" name="基础配置" url="/config/list" perms="system:manage" img="fa fa-caret-right"/>
+        <menu id="code" name="数据字典" url="/code/list" perms="system:manage" img="fa fa-caret-right"/>
+    </group>
+</menus>

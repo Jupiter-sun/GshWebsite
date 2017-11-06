@@ -1,0 +1,34 @@
+<#include "/common/top.html"/>
+<div class="row page-header">
+    <div class="col-xs-4">
+        <div>
+            <span>开始日期：<input type="text" id="ksrq" name="ksrq" onclick="WdatePicker()"></span>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div>
+            <span>结束日期：<input type="text" id="jsrq" name="jsrq" onclick="WdatePicker()"></span>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div>
+            <span>
+                <button class="btn btn-info" type="button" onclick="optQuery()"><i class="fa fa-search bigger-80"></i>&nbsp;查询</button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div id="logList"></div>
+    </div>
+</div>
+<#include "/common/bottom.html"/>
+<script type="text/javascript">
+    $(document).ready(function(){
+        optQuery();
+    });
+    function optQuery(){
+        loadGrid("logList", addNoCache("${ctx}/log/page"), getWhere());
+    }
+</script>

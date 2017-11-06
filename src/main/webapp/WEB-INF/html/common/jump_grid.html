@@ -1,0 +1,13 @@
+<#include "subhead.html"/>
+<div class="main-content">
+</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        parent.alertMsg("${msg.errcode!}","${msg.errmsg!}");
+        parent.optQuery();
+        $.close();
+    });
+</script>
+</body>
+</html>

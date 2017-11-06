@@ -1,0 +1,244 @@
+
+<#include "/common/top.html"/>
+<div class="row">
+	<div class="col-xs-3">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat">
+						<h4 class="widget-title">部门</h4>
+						<span class="widget-title block pull-right padding-right" >
+							<label class="btn-group-sm">
+								<i title="刷新" id="add_kind_btn" class="glyphicon glyphicon-refresh bigger-100" style="cursor:pointer;" onclick="reFreshTree('tree')"></i> &nbsp;&nbsp;
+							</label>
+						</span>
+					</div>
+					<div class="widget-body">
+						<div class="widget-main">
+							<div class="row">
+								<ul id="tree" class="ztree"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-9">
+		<div class="row page-header">
+			<div class="col-xs-12">
+				<div class="row" style="padding-bottom:5px;">
+					<form id="userForm">
+						<div>
+							<input type="hidden" name="pId" id="pId" />
+							<span>用户名：<input type="text" id="username" name="username"></span>
+							<span>姓名：<input type="text" id="truename" name="truename"></span>
+							<span><button class="btn btn-info" type="button" onclick="optQuery()"><i class="fa fa-search bigger-80"></i>&nbsp;查询</button></span>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+                    <span class="block pull-right">
+                        <button class="btn btn-info" onclick="optAdd()" ><i class="fa fa-plus bigger-80"></i>&nbsp;新增</button>
+                        <button class="btn btn-info" onclick="optUpdate()" ><i class="fa fa-pencil bigger-80"></i>&nbsp;编辑</button>
+                        <@shiro.hasPermission name="system:remove"><button class="btn btn-info" onclick="optDel()" ><i class="fa fa-trash bigger-80"></i>&nbsp;删除</button></@shiro.hasPermission>
+						<button id="reset_btn"  class="btn btn-info" onclick="optResetPwd()" >
+							<i class="glyphicon glyphicon-asterisk bigger-80"></i>
+							重置密码
+						</button>
+						<button id="grant_btn"  class="btn btn-info" onclick="optGrant()" >
+							<i class="glyphicon  glyphicon-star bigger-80"></i>
+							分配角色
+						</button>
+						<button id="grant_batchbtn"  class="btn btn-info" onclick="optBatchGrant()" >
+							<i class="glyphicon  glyphicon-star bigger-80"></i>
+							批量授权
+						</button>
+						<button id="enable_btn"  class="btn btn-info" onclick="isEnable('1')" >
+							<i class="glyphicon glyphicon-ok bigger-80"></i>
+							启用
+						</button>
+						<button id="disable_btn"  class="btn btn-info" onclick="isEnable('0')" >
+							<i class="glyphicon glyphicon-off bigger-80"></i>
+							禁用
+						</button>
+                    </span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="userList"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<input type="hidden" name="dept.id" id="deptid" value="">
+<#include "/common/bottom.html"/>
+<script type="text/javascript">
+    $(document).ready(function(){
+		$.fn.zTree.init($("#tree"), setting);
+	});
+	var setting = {
+		async: {
+			enable: true,
+			url:addNoCache("${ctx}/user/getDepts"),
+			autoParam:["id=fid"]
+		},
+		simpleData: {
+			enable: false,
+			idKey: "id",
+			pIdKey: "fid",
+			rootPId: null
+		},
+		callback: {
+			onClick: onClick,
+			onAsyncSuccess: zTreeOnAsyncSuccess
+		}
+	};
+	function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+		var treeObj = $.fn.zTree.getZTreeObj(treeId);
+		var nodes = treeObj.getNodes();
+		if (nodes.length>0) {
+			treeObj.expandNode(nodes[0], true, false, true);
+			var node = treeObj.getNodeByParam('id', 1);
+			treeObj.selectNode(nodes[0]);
+			treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);//调用事件  
+		}
+	}
+		
+
+	function onClick(event, treeId, treeNode) {
+		var id = treeNode.id;
+		$('#deptid').val(id);
+        loadGrid("userList", addNoCache("${ctx}/user/page"), getWhere());
+	}
+    
+	function reFreshTree(treeId) {
+		var zTree = $.fn.zTree.getZTreeObj(treeId);
+		var nodes = zTree.getSelectedNodes();
+		if (nodes.length > 0) {
+			for (var i = 0; i < nodes.length; i++) {
+				var node = nodes[i];
+				zTree.reAsyncChildNodes(node, "refresh");
+			}
+		} else {
+			zTree.reAsyncChildNodes(null, "refresh");
+		}
+	}
+    
+    function optQuery(){
+        loadGrid("userList", addNoCache("${ctx}/user/page"), getWhere());
+    }
+    function optAdd(){
+        $.dialog("${ctx}/user/toAdd","新增用户","800","500");
+    }
+    
+  //单击节点
+	function nodeClick(id) {
+	    $("#deptid").val(id);
+        loadGrid("userList", addNoCache("${ctx}/user/page"), getWhere());
+	}
+
+    function optUpdate(){
+        var o = $("input[name='ids']:checked");
+        if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.dialog("${ctx}/user/toEdit?userid="+o.val(),"编辑用户","800","500");
+    }
+    function optView(userid){
+        $.dialog("${ctx}/user/view?userid="+userid,"查看","800","500");
+    }
+    function optDel(){
+        var o = $("input[name='ids']:checked");
+        if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.confirm("确认删除？", function(){
+            $.ajax({
+                type:"POST",
+                url:"${ctx}/user/remove",
+                data:'userid='+o.val(),
+                cache:false,
+                async:false,
+                dataType:"json",
+                success: function(dataResult){
+                    var result = JSON.parse(dataResult);
+                    alertMsg(result.msg.errcode,result.msg.errmsg);
+                    optQuery();
+                }
+            });
+        });
+    }
+    function isEnable(status){
+        var o = $("input[name='ids']:checked");
+        if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+            $.msg("请选择一项");
+            return;
+        }
+        var m = status=="1"?"启用":"禁用";
+        $.confirm("确认"+m+"？", function(){
+            $.ajax({
+                type:"POST",
+                url:"${ctx}/user/isForbidden",
+                data:'id='+o.val()+'&status='+status,
+                cache:false,
+                async:false,
+                dataType:"json",
+                success: function(dataResult){
+                    var result = JSON.parse(dataResult);
+                    $.alert(result.errmsg);
+                    alertMsg(result.errcode,result.errmsg);
+                    optQuery();
+                }
+            });
+        });
+    }
+
+    function optResetPwd(){
+        var o = $("input[name='ids']:checked");
+        if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.confirm("确认重置密码？", function(){
+            $.ajax({
+                type:"POST",
+                url:"${ctx}/user/resetPwd",
+                data:'id='+o.val(),
+                cache:false,
+                async:false,
+                dataType:"json",
+                success: function(dataResult){
+                    alertMsg(dataResult.errcode,dataResult.errmsg);
+                }
+            });
+        });
+    }
+
+    function optGrant(){
+        var o = $("input[name='ids']:checked");
+        if(checkedCount('ids')<=0 || checkedCount('ids')>1) {
+            $.msg("请选择一项");
+            return;
+        }
+        $.dialog("${ctx}/user/toGrant?userid="+o.val(),"分配角色","800","500");
+    }
+    
+    function optBatchGrant(){
+    	var o = $("input[name='ids']:checked");
+        if(checkedCount('ids')<=0 ) {
+            $.msg("请选择一项");
+            return;
+        }
+    	var str="";   
+    	$("input[name='ids']:checked").each(function(){   
+    		str+=$(this).val()+",";   
+    	})
+        $.dialog("${ctx}/user/toBatchGrant?ids="+str,"批量分配角色","800","500");
+    }
+
+</script>

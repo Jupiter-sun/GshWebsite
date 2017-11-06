@@ -1,0 +1,9 @@
+<@p.table value=page id="logList" url="/log/page";item,i,has_next>
+<@p.column title="操作用户" width="150">${item.operUser.username!}</@p.column><#t/>
+<@p.column title="类别" width="100">${item.category!}</@p.column><#t/>
+<@p.column title="操作时间" width="150">${item.whenCreated?string("yyyy-MM-dd HH:mm:ss")}</@p.column><#t/>
+<@p.column title="操作者IP" width="100">${item.ip!}</@p.column><#t/>
+<@p.column title="标题" width="150">${item.title!}</@p.column><#t/>
+<@p.column title="内容" width="150">${item.content!}</@p.column><#t/>
+<@p.column title="客户端" width="150">${item.client!}</@p.column><#t/>
+</@p.table>

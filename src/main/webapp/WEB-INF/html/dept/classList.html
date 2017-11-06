@@ -1,0 +1,15 @@
+<#assign ctx=rc.contextPath/>
+<div class="row">
+	<div class="col-xs-12">
+		<div id="classList">
+			<@p.table id="classList" value=page url="/dept/classList";item,i,has_next>
+			<@p.column_checkbox name="ids" value="${item.id!}" val=""/><#t/>
+			<@p.column title="班号">${item.bh!}</@p.column><#t/>
+			<@p.column title="班级名称">${item.bjmc!}</@p.column><#t/>
+			<@p.column title="年级">${item.nj!}</@p.column><#t/>
+			<@p.column title="专业"><#if item.major??>${item.major.zy!}</#if></@p.column><#t/>
+			<@p.column title="学院"><#if item.xy??>${item.xy.name!}</#if></@p.column><#t/>
+			</@p.table>
+		</div>
+	</div>
+</div>

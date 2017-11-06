@@ -1,0 +1,75 @@
+<#include "/common/student_top.html"/>
+<h4 class="header blue bolder smaller">综合测评</h4>
+
+<div class="alert alert-warning green smaller lighter">当前测评学年：${cepingYear.xn!}<br>
+    <#if checkDate??>温馨提示：有效填写时间段为${checkDate.message!}，请及时填写。</#if>
+</div>
+
+<div class="profile-users clearfix">
+    <#if quotaResults?? && (quotaResults?size>0)>
+        <table class="table table-striped table-bordered table-hover no-margin-bottom">
+            <thead>
+            <tr>
+                <th>分类</th>
+                <th>权重</th>
+                <th>计算分</th>
+                <th>核查分</th>
+                <!--<th>标准分</th>-->
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <#list quotaResults as item>
+                    <tr>
+                        <td class="align-center">${item.code!}：${item.name!}</td>
+                        <td class="align-center">${item.ratio!}%</div></td>
+                        <td class="align-center">${item.sysScore!}</td>
+                        <td class="align-center">${item.finalScore!}</td>
+                        <!--<td class="align-center"></td>-->
+                        <td class="align-center">
+                            <#if method=="edit">
+                                <a href="javascript:void(0)" onclick="optEdit('${item.id!}')"><#if cepingApply??>修改<#else>填写</#if></a>
+                            </#if>
+                            <#if method=="view"><a href="javascript:void(0)" onclick="optView('${item.id!}')">查看</a></#if>
+                            &nbsp;
+                            <#if method=="edit" && item.sfhp??&&item.sfhp=="1">
+                                <a href="javascript:void(0)" onclick="optHp('${item.id!}')">班级互评</a>
+                            </#if>
+                        </td>
+
+                    </tr>
+                </#list>
+            </tbody>
+        </table>
+    </#if>
+</div>
+ <div class="row align-center" style="margin-top:20px;">
+            <button class="btn btn-info" type="button" onclick="save()" >
+                <i class="ace-icon fa fa-check bigger-110"></i>
+               		提交
+            </button>
+        </div>
+<script type="text/javascript">
+    function optView(quotaId){
+        window.location.href = "${ctx}/cepingApply/toStdApply?yearId=${cepingYear.id!}&type=view&quotaId="+quotaId;
+    }
+    function optEdit(quotaId){
+        window.location.href = "${ctx}/cepingApply/toStdApply?yearId=${cepingYear.id!}&type=edit&quotaId="+quotaId;
+    }
+    function optHp(quotaId){
+        window.location.href = "${ctx}/cepingApply/hp?yearId=${cepingYear.id!}&quotaId="+quotaId;
+    }
+    
+    function save(){
+    	$.ajax({
+            type: "POST",
+            cache: false,
+            url: "${ctx}/cepingApply/sumbit?yearId=${cepingYear.id!}",
+            dataTyp: "JSON",
+            success: function (dataResult) {
+               $.msg(dataResult.errmsg);
+            }
+        });
+    }
+</script>
+<#include "/common/student_bottom.html"/>

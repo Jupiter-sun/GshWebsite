@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-lazy-init="false">
+
+	<bean id="realm" class="cn.yfjz.core.security.service.Realm"/>
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="realm" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+	</bean>
+
+
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
+	</bean>
+	<bean id="roleFilter" class="cn.yfjz.core.shiro.filter.HasAnyRoleAuthorizationFilter"/>
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 安全管理器 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 默认的登陆访问url -->
+		<property name="loginUrl" value="/login" />
+		<!-- 登陆成功后跳转的url -->
+		<property name="successUrl" value="/index" />
+		<!-- 没有权限跳转的url -->
+		<property name="unauthorizedUrl" value="/unauth" />
+		<property name="filters">
+			<map>
+				<entry key="roles" value-ref="roleFilter"></entry>
+			</map>
+		</property>
+		<!-- 访问地址的过滤规则,从上至下的优先级,如果有匹配的规则,就会返回,不会再进行匹配 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/login = authc
+				/logout = logout
+				/static/** = anon
+				/api/** = anon
+				/home = anon
+
+				<!-- 日志 -->
+				/log/list = perms[system:manage]
+				/log/page = perms[system:manage]
+				<!-- 用户 -->
+				/user/list = perms[system:manage]
+				/user/page = perms[system:manage]
+				/user/toAdd = perms[system:manage]
+				/user/add = perms[system:manage]
+				/user/toEdit = perms[system:manage]
+				/user/edit = perms[system:manage]
+				/user/remove = perms[system:manage]
+				/user/isForbidden = perms[system:manage]
+				/user/resetPwd = perms[system:manage]
+				/user/toGrant = perms[system:manage]
+				/user/toBatchGrant = perms[system:manage]
+				/user/batchGrant = perms[system:manage]
+				/user/getDepts = perms[system:manage]
+				<!-- 角色 -->
+				/role/list = perms[system:manage]
+				/role/page = perms[system:manage]
+				/role/toAdd = perms[system:manage]
+				/role/add = perms[system:manage]
+				/role/toEdit = perms[system:manage]
+				/role/edit = perms[system:manage]
+				/role/remove = perms[system:manage]
+				/role/toGrant = perms[system:manage]
+				/role/getPagerByRole = perms[system:manage]
+				<!-- 部门 -->
+				/dept/list = perms[system:manage]
+				/dept/page = perms[system:manage]
+				/dept/listChild = perms[system:manage]
+				/dept/tree = perms[system:manage]
+				/dept/toAdd = perms[system:manage]
+				/dept/add = perms[system:manage]
+				/dept/toEdit = perms[system:manage]
+				/dept/edit = perms[system:manage]
+				/dept/isForbidden = perms[system:manage]
+
+				<!--/** = authc-->
+			</value>
+		</property>
+	</bean>
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+
+</beans>
